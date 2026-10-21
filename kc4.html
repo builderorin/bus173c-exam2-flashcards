@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>BUS1 176 Knowledge Checkpoint 4 Practice Quiz</title>
-<meta name="description" content="20-question practice quiz: Koller Valuation Chapters 13, 14, 15 and the HBR article Do You Know Your Cost of Capital?">
+<title>BUS1 176 Knowledge Checkpoint 4: Flashcards, Quizzes and Practice Exams</title>
+<meta name="description" content="Flashcards, multiple choice, matching and three 20-question practice exams for BUS1 176 Knowledge Checkpoint 4: Koller Valuation Chapters 13, 14 and 15 and the Harvard Business Review article Do You Know Your Cost of Capital?">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%93%9A%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -101,60 +101,393 @@ mark{background:var(--hl);color:inherit;padding:0 3px;border-radius:4px;box-deco
 .opt.picked .letter{background:var(--accent);color:#fff}
 .status.wrongtag{background:#fde8e8;color:#9b1c1c}
 #ptResult{margin:0 0 12px}
-.vers{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#ebe7de;border-radius:12px;padding:4px;margin:0 0 10px}
+.vers{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;background:#ebe7de;border-radius:12px;padding:4px;margin:0 0 10px}
 .ver{border:none;background:transparent;border-radius:9px;padding:9px 4px;font:700 .9rem Inter,system-ui,sans-serif;color:var(--muted);cursor:pointer}
 .ver.active{background:var(--accent);color:#fff}
 body.test-mode .chips{display:none}
-
-
-.ptq .tag{max-width:60%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sublead{text-align:center;color:var(--muted);font-size:.88rem;margin:-4px 0 12px}
+.exbar{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 2px;margin:0 0 6px;border-bottom:1px solid var(--line)}
+.ptq .tag{max-width:calc(100% - 120px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fb.exp{font-weight:400;line-height:1.45}
+.fb.exp b{font-weight:700}
+.bytopic{list-style:none;padding:0;margin:12px 0 0;text-align:left}
+.bytopic li{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line);padding:6px 2px;font-size:.92rem}
+.jump{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 12px;margin:14px 0 0;font-size:.85rem}
+.jump a{color:var(--accent);font-weight:600;text-decoration:none;padding:4px 2px}
+.jump a:hover{text-decoration:underline}
+
 </style>
 </head>
-<body class="test-mode">
+<body>
 <div class="wrap">
-<h1>BUS1 176 &middot; Knowledge Checkpoint 4 practice quiz</h1>
-<p class="sublead">Koller Chapters 13 (Forecasting), 14 (Continuing Value), 15 (Cost of Capital) and the Harvard Business Review article &ldquo;Do You Know Your Cost of Capital?&rdquo;</p>
-<section id="modeTest"></section>
+  <h1>BUS1 176 &middot; Knowledge Checkpoint 4</h1>
+  <p class="sublead">Koller <i>Valuation</i> Chapters 13 (forecasting), 14 (continuing value), 15 (cost of capital) and the Harvard Business Review article &ldquo;Do You Know Your Cost of Capital?&rdquo; &middot; Prof. Faulkner</p>
+  <div class="modes" role="tablist" aria-label="Study mode">
+    <button class="mode active" data-mode="cards" role="tab" aria-selected="true">Flashcards</button>
+    <button class="mode" data-mode="mc" role="tab" aria-selected="false">Multiple choice</button>
+    <button class="mode" data-mode="match" role="tab" aria-selected="false">Match</button>
+    <button class="mode" data-mode="test" role="tab" aria-selected="false">Practice exam</button>
+  </div>
+  <div class="chips" id="chips" role="tablist" aria-label="Topic filter"></div>
+  <section id="modeCards">
+  <div class="toolbar">
+    <span class="counter" id="counter" aria-live="polite">1 / 45</span>
+    <span class="stats" id="stats"></span>
+    <span>
+      <button class="tbtn" id="shuffle" title="Shuffle">&#x1F500; Shuffle</button>
+      <button class="tbtn" id="reviewMode" title="Review only Still learning cards">Review only Still learning</button>
+    </span>
+  </div>
+  <div id="stage">
+    <div class="scene" id="scene">
+      <div class="card" id="card" role="button" tabindex="0" aria-label="Flashcard, tap to flip">
+        <div class="face front"><span class="tag" id="tagF"></span><span class="status" id="stF"></span><div class="text" id="front"></div><div class="hint">Tap to flip<span class="keys"> &middot; Space</span></div></div>
+        <div class="face back"><span class="tag" id="tagB"></span><span class="status" id="stB"></span><div class="text" id="back"></div><div class="hint">Tap to flip back</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="empty" id="empty" hidden></div>
+  <div class="nav">
+    <button class="btn" id="prev" aria-label="Previous card">&larr; Prev</button>
+    <button class="btn" id="next" aria-label="Next card">Next &rarr;</button>
+  </div>
+  <div class="nav">
+    <button class="btn learn" id="learning">Still learning</button>
+    <button class="btn good" id="got">Got it &#x2713;</button>
+  </div>
+  <div class="foot"><span class="keys">Keys: &larr; &rarr; navigate &middot; Space flip &middot; </span>Swipe left/right on phones &middot; Progress is saved on this device. <button id="reset">Reset progress</button></div>
+  </section>
+  <section id="modeMc" hidden></section>
+  <section id="modeMatch" hidden></section>
+  <section id="modeTest" hidden></section>
+  <nav class="jump" aria-label="All study modes">
+    <a href="#flashcards">Flashcards</a><a href="#multiple-choice">Multiple choice</a><a href="#match">Match</a>
+    <a href="#exam-1">Practice exam 1</a><a href="#exam-2">Practice exam 2</a><a href="#exam-3">Practice exam 3</a>
+  </nav>
 </div>
 <script>
-const QS = [["Ch 13 Forecasting", "When building a forecast, which line do you forecast FIRST, because most other items are tied to it?", ["Capital expenditures (spending on equipment and buildings)", "Revenue (sales)", "Net income", "The cost of capital"], 1, "Start with revenue, then forecast operating drivers such as margins and turnover ratios as a share of revenue."], ["Ch 13 Forecasting", "Revenue is $1,000 and grows 8%. Net operating profit less adjusted taxes (NOPAT) is 10% of revenue. Invested capital turnover (revenue / invested capital) is 2.0, and invested capital today is $500. What is next year's free cash flow?", ["$108", "$60", "-$432", "$68"], 3, "Revenue $1,080, NOPAT $108, invested capital $1,080/2 = $540, so new investment = $40 and free cash flow = 108 - 40 = $68."], ["Ch 13 Forecasting", "Most operating working capital items (like accounts receivable and inventory) are usually forecast as:", ["A percentage of revenue (or days of sales), using a driver ratio", "A fixed dollar amount copied from last year", "A percentage of net income", "A plug that makes the balance sheet balance"], 0, "Tie operating items to their economic driver, usually revenue."], ["Ch 13 Forecasting", "A company's new projects earn a return on invested capital (ROIC) of 7%, and its weighted average cost of capital (WACC) is 9%. Faster growth in these projects will:", ["Create value, because more revenue always adds value", "Have no effect on value", "Destroy value, because ROIC is below WACC", "Create value as long as margins stay the same"], 2, "Growth adds value only when ROIC on new capital is above WACC."], ["Ch 13 Forecasting", "After forecasting the income statement and operating balance sheet items, how do you make the balance sheet balance?", ["Use a plug of excess cash or new debt (a financing item)", "Change revenue until it balances", "Plug with property, plant and equipment", "Plug with accounts receivable"], 0, "Koller balances with cash or debt (financing items), never with operating items."], ["Ch 14 Continuing Value", "Year-10 net operating profit less adjusted taxes (NOPAT) is $200; year 11 is $208. Growth (g) = 4%, return on new invested capital (RONIC) = 16%, weighted average cost of capital (WACC) = 9%. Using the key value driver formula, the continuing value at the end of year 10 is:", ["$3,000", "$4,160", "$3,120", "$2,311"], 2, "CV = NOPAT next year x (1 - g/RONIC) / (WACC - g) = 208 x (1 - 0.25) / 0.05 = $3,120."], ["Ch 14 Continuing Value", "NOPAT (net operating profit less adjusted taxes) next year is $90, growth is 3%, and return on new invested capital (RONIC) equals the weighted average cost of capital (WACC) of 10%. What is the continuing value?", ["$1,286 (NOPAT / (WACC - g), the aggressive growth formula)", "$900", "$630", "$3,000"], 1, "When RONIC = WACC, growth adds no value, so CV = 90 x (1 - 0.3) / 0.07 = 90 / 0.10 = $900 (the convergence formula)."], ["Ch 14 Continuing Value", "The continuing value at the end of a 5-year forecast is $1,000 and the weighted average cost of capital (WACC) is 10%. Its present value today is:", ["$564.47", "$683.01", "$1,000", "$620.92"], 3, "The continuing value sits at the end of year 5, so discount 5 years: 1,000 / 1.10^5 = $620.92."], ["Ch 14 Continuing Value", "Setting return on new invested capital (RONIC) equal to the weighted average cost of capital (WACC) in the continuing value means:", ["The company's competitive advantage ends right away and all returns fall to WACC", "The company stops growing", "The continuing value becomes zero", "New investment earns just its cost, but existing capital keeps earning its old, higher return"], 3, "RONIC applies only to NEW capital, so the average return fades slowly toward WACC."], ["Ch 14 Continuing Value", "Making the explicit forecast period longer (for example 10 years instead of 5), with the same assumptions, will:", ["Not change total value; it only shifts value between the forecast period and the continuing value", "Raise total value, because more years are counted", "Lower total value, because of more discounting", "Make the continuing value bigger"], 0, "Forecast length changes the split, not the total (Koller's $893 million example)."], ["Ch 15 Cost of Capital", "Market value of equity is $60 million and debt is $40 million. Cost of equity is 10%, the yield on new debt is 6%, and the marginal tax rate is 25%. What is the weighted average cost of capital (WACC)?", ["8.40%", "6.70%", "7.80%", "7.25%"], 2, "WACC = 0.6 x 10% + 0.4 x 6% x (1 - 0.25) = 6.0% + 1.8% = 7.80%."], ["Ch 15 Cost of Capital", "Risk-free rate is 4%, beta is 1.3, and the expected stock market return is 9.5%. Using the capital asset pricing model (CAPM), the cost of equity is:", ["16.35%", "11.15%", "12.35%", "9.50%"], 1, "Market risk premium = 9.5% - 4% = 5.5%; cost of equity = 4% + 1.3 x 5.5% = 11.15%."], ["Ch 15 Cost of Capital", "A similar company has a levered beta (beta including the effect of its debt) of 1.5 and a debt-to-equity ratio of 0.5. Using Koller's simple formula (levered beta = unlevered beta x (1 + debt/equity)), what is the beta for your company with a target debt-to-equity ratio of 0.25?", ["1.875", "1.00", "1.25", "1.20"], 2, "Unlevered beta = 1.5 / 1.5 = 1.0; relevered = 1.0 x (1 + 0.25) = 1.25."], ["Ch 15 Cost of Capital", "Which weights should you use for debt and equity in the weighted average cost of capital (WACC)?", ["Book (accounting) values from the balance sheet", "Target capital structure at market values", "Today's book debt and market equity", "Whatever mix gives the lowest WACC"], 1, "Koller uses a target mix of debt and equity measured at market values."], ["Ch 15 Cost of Capital", "Koller's standard choice for the risk-free rate and market risk premium is:", ["3-month Treasury bill rate, and a market risk premium of about 5% to 6%", "10-year government bond yield, and a market risk premium of about 10% to 12%", "30-year bond yield, and a premium that is updated every month", "10-year government bond yield, and a market risk premium of about 5% to 6%"], 3, "Use a long-term government bond to match long-lived cash flows, and a steady 5% to 6% premium."], ["HBR Cost of Capital", "In the article, a $20 million project returns $3.25 million a year for 10 years. Using a 9% cost of capital (1% below the true 10%), the net present value (value today of future cash minus the cost) is about:", ["+$0.9 million", "$0", "-$0.9 million", "+$12.5 million"], 0, "3.25 x annuity factor at 9% (6.418) = $20.86 million, so the net present value is about +$0.86 million; at 10% it is about $0."], ["HBR Cost of Capital", "A company's new borrowing would cost 7%; its old bonds pay 5%. The marginal tax rate is 25% and the effective tax rate is 15%. The after-tax cost of debt should be:", ["3.75%", "5.25%", "5.95%", "7.00%"], 1, "Use the rate on NEW borrowing times (1 - marginal tax rate): 7% x 0.75 = 5.25%."], ["HBR Cost of Capital", "If a company uses a cost of capital that is LOWER than its true cost, the main danger is that it will:", ["Fund projects that actually destroy value", "Pass up good projects", "Pay higher taxes", "Get a higher credit rating"], 0, "Too low a rate makes bad projects look good; too high a rate makes you pass up good ones."], ["HBR Cost of Capital", "For a project unlike the company's main business (like Microsoft building a computer-chip lab), the article says the right hurdle rate is:", ["The company's own cost of capital", "The company's rate plus 1 percentage point", "The risk-free rate", "The cost of capital of pure-play companies that do only that kind of business"], 3, "Only about half of the companies that adjust for project risk do it this way."], ["HBR Cost of Capital", "What did the Association for Financial Professionals survey in the article find?", ["Almost all companies use market-value weights", "Most companies use the marginal tax rate", "About 90% use the capital asset pricing model (CAPM), yet no question got the same answer from a majority", "Companies agree closely on the market risk premium"], 2, "Same tools, different inputs. Also, using book equity made Delta's and IBM's cost of capital 2% to 3% too low."]];
+const CARDS = [{"id": 1, "topic": "Chapter 13: Forecasting", "front": "Before filling in any line items, what two choices do you make first?", "back": "How many years to forecast and how much detail to use. Koller suggests a detailed forecast of about 5 to 7 years, then a simpler forecast of a few key drivers out to about 10 to 15 years, then a continuing value."}, {"id": 2, "topic": "Chapter 13: Forecasting", "front": "Which line do you forecast first, and why?", "back": "Revenue (sales). Almost every other line, like costs, working capital and equipment, is forecast as a ratio tied to revenue."}, {"id": 3, "topic": "Chapter 13: Forecasting", "front": "How do you forecast most operating costs and working capital items, like accounts receivable and inventory?", "back": "As a ratio to their driver, usually revenue: costs as a percentage of revenue, and working capital as a percentage of revenue or as days of sales."}, {"id": 4, "topic": "Chapter 13: Forecasting", "front": "Accounts receivable from days of sales (formula)", "back": "Accounts receivable = revenue × days ÷ 365; Example: revenue $730 and 30 days gives $730 × 30 ÷ 365 = $60"}, {"id": 5, "topic": "Chapter 13: Forecasting", "front": "How do you make the forecast balance sheet balance?", "back": "With a financing plug: excess cash if there is extra money, or new debt if more money is needed. Never plug with an operating item like inventory or equipment."}, {"id": 6, "topic": "Chapter 13: Forecasting", "front": "Free cash flow (formula)", "back": "Free cash flow = net operating profit less adjusted taxes − net investment; Net investment = this year's invested capital − last year's invested capital"}, {"id": 7, "topic": "Chapter 13: Forecasting", "front": "Return on invested capital (formula)", "back": "Return on invested capital = net operating profit less adjusted taxes ÷ invested capital"}, {"id": 8, "topic": "Chapter 13: Forecasting", "front": "When does faster growth create value?", "back": "Only when the return on the new invested capital is above the weighted average cost of capital (the blended rate lenders and shareholders require). If the return is below that rate, growth destroys value."}, {"id": 9, "topic": "Chapter 13: Forecasting", "front": "MATH: Revenue is $1,000 and grows 10%. Net operating profit less adjusted taxes is 12% of revenue. Revenue ÷ invested capital = 2.5. Invested capital today is $400. What is next year's free cash flow?", "back": "Revenue = $1,000 × 1.10 = $1,100; Operating profit after taxes = 12% × $1,100 = $132; Invested capital = $1,100 ÷ 2.5 = $440; Free cash flow = $132 − ($440 − $400) = $92"}, {"id": 10, "topic": "Chapter 13: Forecasting", "front": "How do you forecast capital spending on property, plant and equipment?", "back": "Forecast net property, plant and equipment as a ratio to revenue. Then capital spending = increase in net property, plant and equipment + depreciation."}, {"id": 11, "topic": "Chapter 13: Forecasting", "front": "What should you NOT spend much time on in a forecast?", "back": "Small line items in far-off years. Focus on the big value drivers (growth, margins, return on invested capital) and check that they make sense next to competitors."}, {"id": 12, "topic": "Chapter 14: Continuing value", "front": "What is continuing value?", "back": "One number, at the end of the forecast period, for the value of all cash flows after the forecast. It is often about 60% to 90% of a company's total value."}, {"id": 13, "topic": "Chapter 14: Continuing value", "front": "Key value driver formula (formula)", "back": "Continuing value = NOPAT next year × (1 − g ÷ RONIC) ÷ (WACC − g); NOPAT = net operating profit less adjusted taxes; g = long-run growth rate; RONIC = return on new invested capital; WACC = weighted average cost of capital"}, {"id": 14, "topic": "Chapter 14: Continuing value", "front": "What does growth ÷ return on new invested capital measure?", "back": "The reinvestment rate: the share of each year's operating profit after taxes that must be plowed back to grow. Example: 5% growth ÷ 20% return = 25% reinvested."}, {"id": 15, "topic": "Chapter 14: Continuing value", "front": "Which year's profit goes into the continuing value formula?", "back": "Next year's (the first year after the forecast). It should be normalized: a typical mid-cycle level, not a peak or a slump."}, {"id": 16, "topic": "Chapter 14: Continuing value", "front": "Convergence formula (formula)", "back": "Continuing value = NOPAT next year ÷ WACC; NOPAT = net operating profit less adjusted taxes; WACC = weighted average cost of capital; Use it when return on new invested capital = WACC. Growth drops out, but it does NOT mean zero growth."}, {"id": 17, "topic": "Chapter 14: Continuing value", "front": "What is the aggressive-growth formula mistake?", "back": "Using operating profit after taxes ÷ (cost of capital − growth). It assumes growth with no new investment (an endless return on new capital), so it overstates value."}, {"id": 18, "topic": "Chapter 14: Continuing value", "front": "Economic profit version of continuing value (formula)", "back": "Continuing value = economic profit next year ÷ WACC + present value of later economic profit ÷ (WACC − g); Economic profit = invested capital × (return on invested capital − WACC); WACC = weighted average cost of capital; g = long-run growth rate"}, {"id": 19, "topic": "Chapter 14: Continuing value", "front": "A continuing value sits at the end of year 5. How many years do you discount it?", "back": "5 years: divide by (1 + cost of capital) to the 5th power. Discounting 6 years is a common mistake, because the formula already gives a value as of the end of year 5."}, {"id": 20, "topic": "Chapter 14: Continuing value", "front": "Does a longer forecast period (say 10 years instead of 5) change total value?", "back": "No. With the same assumptions it only shifts value between the forecast years and the continuing value. Koller's example is $893 million either way."}, {"id": 21, "topic": "Chapter 14: Continuing value", "front": "Does setting the return on new invested capital equal to the cost of capital mean the competitive advantage ends?", "back": "No. Only NEW capital earns just its cost. Existing capital keeps its old, higher return, so the average return fades slowly (Koller: 18% falls to about 14% after 10 years)."}, {"id": 22, "topic": "Chapter 14: Continuing value", "front": "MATH: Next year's net operating profit less adjusted taxes is $50. Growth 5%, return on new invested capital 10%, weighted average cost of capital 9%. Continuing value?", "back": "Reinvestment rate = 5% ÷ 10% = 50%; Continuing value = $50 × (1 − 0.50) ÷ (0.09 − 0.05) = $625"}, {"id": 23, "topic": "Chapter 14: Continuing value", "front": "Name three common continuing value pitfalls.", "back": "1) Base-year extrapolation: growing every line by the same rate, which over-invests in working capital. 2) Naive overconservatism: assuming no excess return even for strong brands. 3) Purposeful overconservatism: lowballing because of uncertainty."}, {"id": 24, "topic": "Chapter 14: Continuing value", "front": "What long-run growth rate is reasonable in a continuing value?", "back": "Few companies outgrow the economy forever. A good estimate is long-run growth in the industry's consumption plus inflation."}, {"id": 25, "topic": "Chapter 15: Cost of capital", "front": "Weighted average cost of capital (formula)", "back": "WACC = debt share × cost of debt × (1 − tax rate) + equity share × cost of equity; WACC = weighted average cost of capital; Debt share = debt ÷ (debt + equity), at market values; Tax rate = marginal tax rate"}, {"id": 26, "topic": "Chapter 15: Cost of capital", "front": "Capital asset pricing model (formula)", "back": "Cost of equity = risk-free rate + beta × market risk premium; Market risk premium = expected market return − risk-free rate"}, {"id": 27, "topic": "Chapter 15: Cost of capital", "front": "What risk-free rate does Koller use?", "back": "The yield on a 10-year government bond (in the United States, the 10-year Treasury). Long-term, to match long-lived cash flows. Not a 3-month bill."}, {"id": 28, "topic": "Chapter 15: Cost of capital", "front": "What market risk premium does Koller use?", "back": "About 5% to 6%: one steady long-run estimate that is not changed every month."}, {"id": 29, "topic": "Chapter 15: Cost of capital", "front": "What is beta, and how does Koller estimate it?", "back": "How much a stock moves with the whole stock market (1.0 = average; above 1 = swings more). Measure it with about 5 years of monthly returns, then use an industry average of similar companies, because one company's beta is noisy."}, {"id": 30, "topic": "Chapter 15: Cost of capital", "front": "Unlevering beta (formula)", "back": "Unlevered beta = levered beta ÷ (1 + debt ÷ equity); Unlevered beta = beta with the effect of debt taken out"}, {"id": 31, "topic": "Chapter 15: Cost of capital", "front": "Relevering beta (formula)", "back": "Levered beta = unlevered beta × (1 + target debt ÷ equity); Use your company's target debt-to-equity ratio at market values"}, {"id": 32, "topic": "Chapter 15: Cost of capital", "front": "What is the cost of debt?", "back": "The yield to maturity on the company's long-term bonds (the total return a buyer earns holding the bond to the end), not the old coupon rate. If the bonds don't trade, use yields on bonds with the same credit rating. Then multiply by (1 − marginal tax rate), because interest is tax-deductible."}, {"id": 33, "topic": "Chapter 15: Cost of capital", "front": "Which weights go into the weighted average cost of capital?", "back": "The target mix of debt and equity, measured at market values, not book (accounting) values."}, {"id": 34, "topic": "Chapter 15: Cost of capital", "front": "MATH: Risk-free rate 4%, beta 1.2, market risk premium 5%. Cost of equity?", "back": "Cost of equity = 4% + 1.2 × 5% = 10.0%"}, {"id": 35, "topic": "Chapter 15: Cost of capital", "front": "MATH: Equity is 70% and debt 30% of market value. Cost of equity 10%, cost of debt 6%, marginal tax rate 25%. Weighted average cost of capital?", "back": "Equity part = 70% × 10% = 7.0%; Debt part = 30% × 6% × (1 − 0.25) = 1.35%; Weighted average cost of capital = 8.35%"}, {"id": 36, "topic": "Harvard Business Review article", "front": "Who wrote “Do You Know Your Cost of Capital?” and what is it based on?", "back": "Michael Jacobs and Anil Shivdasani, Harvard Business Review, 2012. It is based on a survey of members of the Association for Financial Professionals (over 300 answered)."}, {"id": 37, "topic": "Harvard Business Review article", "front": "In the survey, what share of companies use discounted cash flow analysis and the capital asset pricing model?", "back": "About 80% use discounted cash flow analysis. About 90% use the capital asset pricing model to get the cost of equity."}, {"id": 38, "topic": "Harvard Business Review article", "front": "What was the survey's most surprising finding?", "back": "No question got the same answer from a majority. Companies use the same tools but different inputs. Nearly half think their rate is off by 1% or more."}, {"id": 39, "topic": "Harvard Business Review article", "front": "The $20 million example: what happens at 9%, 10% and 11%?", "back": "$20 million project, $3.25 million a year for 10 years; At 10%: net present value about $0 (break-even); At 9%: about +$1 million (looks good); At 11%: about −$1 million (gets rejected)"}, {"id": 40, "topic": "Harvard Business Review article", "front": "What goes wrong if your cost of capital is too low? Too high?", "back": "Too low: you fund projects that destroy value. Too high: you pass up good projects."}, {"id": 41, "topic": "Harvard Business Review article", "front": "Which cost of debt is right, and how many companies used it?", "back": "The expected rate on NEW borrowing. Only 34% used it. 37% used the current average rate on their existing debt."}, {"id": 42, "topic": "Harvard Business Review article", "front": "Which tax rate should adjust the cost of debt, and what did most companies use?", "back": "The marginal tax rate (the rate on the next dollar of profit), used by only 29%. Most (64%) used the effective rate, the average rate actually paid."}, {"id": 43, "topic": "Harvard Business Review article", "front": "What happens if you use book (accounting) equity for the weights?", "back": "Book and market values can be 10 times apart. For Delta Air Lines and IBM, using book equity made the cost of capital 2% to 3% too low. Use market values."}, {"id": 44, "topic": "Harvard Business Review article", "front": "How should a company set the rate for a project unlike its main business?", "back": "Use the cost of capital of pure-play companies (ones that do only that business), like a chip maker for Microsoft's chip lab. Don't just add 1 percentage point. 37% made no adjustment at all."}, {"id": 45, "topic": "Harvard Business Review article", "front": "In the survey, what were the most common risk-free rate and market risk premium?", "back": "Risk-free rate: the 10-year Treasury (46%). Market risk premium: about half used 5% to 6%, and about 1 in 4 seldom or never update it."}];
+const TOPICS = ["All", "Chapter 13: Forecasting", "Chapter 14: Continuing value", "Chapter 15: Cost of capital", "Harvard Business Review article"];
+const TRAPS = {"9": ["Revenue = $1,000 × 1.10 = $1,100; Operating profit after taxes = 12% × $1,100 = $132; Free cash flow = $132", "Operating profit after taxes = 12% × $1,000 = $120; Invested capital = $1,100 ÷ 2.5 = $440; Free cash flow = $120 − $40 = $80", "Operating profit after taxes = 12% × $1,100 = $132; Invested capital = $1,100 ÷ 2.5 = $440; Free cash flow = $132 − $440 = −$308"], "22": ["Continuing value = $50 ÷ (0.09 − 0.05) = $1,250", "Continuing value = $50 ÷ 0.09 = $555.56", "Reinvestment rate = 50%; Continuing value = $50 × (1 − 0.50) ÷ 0.09 = $277.78"], "34": ["Cost of equity = 1.2 × 5% = 6.0%", "Cost of equity = 4% + 5% = 9.0%", "Cost of equity = 4% + 1.2 × (5% − 4%) = 5.2%"], "35": ["Equity part = 70% × 10% = 7.0%; Debt part = 30% × 6% = 1.8%; Weighted average cost of capital = 8.8%", "Equity part = 30% × 10% = 3.0%; Debt part = 70% × 6% × (1 − 0.25) = 3.15%; Weighted average cost of capital = 6.15%", "Equity part = 70% × 10% = 7.0%; Debt part = 30% × 6% × 0.25 = 0.45%; Weighted average cost of capital = 7.45%"]};
+let mode = "cards";
+const KEY = "bus176-kc4-progress-v1";
+let progress = {};
+try { progress = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { progress = {}; }
+let topic = "All", reviewOnly = false, order = CARDS.map((c,i)=>i), list = [], pos = 0;
 const $ = id => document.getElementById(id);
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(progress)); } catch(e){} }
 function esc(s){ return s.replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch])); }
-let pt = {picks: {}, graded: false};
-const N = QS.length;
-function ptRender(){
-  const box = $("modeTest"), answered = Object.keys(pt.picks).length;
-  let score = 0; QS.forEach((q,i) => { if (pt.picks[i] === q[3]) score++; });
-  box.innerHTML =
-    '<div class="qbar"><span>Practice quiz &middot; ' + N + ' questions</span><span class="sub" id="ptProgress">' + (pt.graded ? 'Score: ' + score + ' / ' + N : answered + ' of ' + N + ' answered') + '</span></div>' +
-    (pt.graded ? '<div class="qcard summary" id="ptResult"><div>Your score</div><div class="big" id="ptScore">' + score + ' / ' + N + '</div><div>' + Math.round(score * 100 / N) + '% correct</div>' +
-      '<button class="btn primary" id="ptRetakeTop">Retake</button></div>' : '<p class="mhelp">Pick one answer for each question, then tap \u201cCheck my answers\u201d at the bottom.</p>') +
-    QS.map((q,i) => {
-      const pick = pt.picks[i], right = pick === q[3];
-      return '<div class="qcard ptq" data-q="' + i + '"><span class="tag">' + (i + 1) + ' &middot; ' + esc(q[0]) + '</span>' +
-        (pt.graded ? '<span class="status ' + (right ? 'got">&#x2713; Right' : 'wrongtag">&#x2717; ' + (pick == null ? 'Not answered' : 'Wrong')) + '</span>' : '') +
-        '<div class="pq">' + esc(q[1]) + '</div><div class="opts">' + q[2].map((o,k) => {
-          let cls = "opt";
-          if (pt.graded){ cls += k === q[3] ? " right" : k === pick ? " wrong" : " dim"; }
-          else if (k === pick) cls += " picked";
-          return '<button class="' + cls + '" data-k="' + k + '"' + (pt.graded ? " disabled" : "") + '><span class="letter">' + "ABCD"[k] + '</span><span class="otext">' + esc(o) + '</span></button>';
-        }).join("") + '</div>' +
-        (pt.graded ? '<div class="fb ' + (right ? 'ok' : 'no') + '">' + (right ? '' : 'Answer: ' + "ABCD"[q[3]] + '. ') + esc(q[4]) + '</div>' : '') + '</div>';
-    }).join("") +
-    (pt.graded ? '<button class="btn primary" id="ptRetake">Retake</button>'
-      : '<button class="btn primary" id="ptCheck">Check my answers' + (answered < N ? ' (' + (N - answered) + ' unanswered)' : '') + '</button>');
-  box.querySelectorAll(".ptq .opt").forEach(b => b.onclick = () => {
-    const q = +b.closest(".ptq").dataset.q; pt.picks[q] = +b.dataset.k;
-    b.parentNode.querySelectorAll(".opt").forEach(x => x.classList.toggle("picked", x === b));
-    const n = Object.keys(pt.picks).length;
-    $("ptProgress").textContent = n + " of " + N + " answered";
-    $("ptCheck").textContent = "Check my answers" + (n < N ? " (" + (N - n) + " unanswered)" : "");
-  });
-  if (pt.graded){ [$("ptRetake"), $("ptRetakeTop")].forEach(b => b.onclick = () => { pt = {picks: {}, graded: false}; ptRender(); window.scrollTo({top: 0}); }); }
-  else $("ptCheck").onclick = () => { pt.graded = true; ptRender(); window.scrollTo({top: 0}); };
+const NUM = /(\$?\d[\d,]*(?:\.\d+)?(?:\s?(?:million|thousand))?(?:%|\+)?(?:\s?-\s?\d[\d,]*(?:\.\d+)?%?)?)/g;
+function highlight(s, isFormula){
+  const e = esc(s);
+  if (isFormula || /=/.test(s)) return "<mark>" + e + "</mark>";
+  return e.replace(NUM, "<mark>$1</mark>");
 }
-ptRender();
+function render(){
+  const empty = $("empty"), scene = $("scene");
+  if (!list.length){
+    scene.hidden = true; empty.hidden = false;
+    empty.textContent = reviewOnly ? "No \u201cStill learning\u201d cards here. Nice work! Turn off review mode or mark some cards." : "No cards.";
+    $("counter").textContent = "0 / 0";
+    ["prev","next","got","learning"].forEach(id => $(id).disabled = true);
+    updateStats(); return;
+  }
+  scene.hidden = false; empty.hidden = true;
+  ["prev","next","got","learning"].forEach(id => $(id).disabled = false);
+  if (pos >= list.length) pos = list.length - 1;
+  if (pos < 0) pos = 0;
+  const c = CARDS[list[pos]];
+  $("card").classList.remove("flipped");
+  const isFormula = /\(formula\)/i.test(c.front);
+  $("front").innerHTML = highlight(c.front, false);
+  $("back").innerHTML = c.back.split("; ").map(l => "<div>" + highlight(l, isFormula) + "</div>").join("");
+  $("tagF").textContent = $("tagB").textContent = c.topic;
+  const st = progress[c.id];
+  [$("stF"), $("stB")].forEach(el => { el.className = "status" + (st ? " " + st : ""); el.textContent = st === "got" ? "Got it" : st === "learning" ? "Still learning" : ""; });
+  $("counter").textContent = (pos + 1) + " / " + list.length;
+  updateStats();
+}
+function updateStats(){
+  let g=0,l=0; CARDS.forEach(c => { if (progress[c.id]==="got") g++; else if (progress[c.id]==="learning") l++; });
+  $("stats").textContent = "\u2713 " + g + " \u00b7 learning " + l;
+}
+function rebuild(keepId){
+  list = order.filter(i => (topic === "All" || CARDS[i].topic === topic) && (!reviewOnly || progress[CARDS[i].id] === "learning"));
+  pos = 0;
+  if (keepId != null){ const k = list.indexOf(keepId); if (k >= 0) pos = k; }
+  renderChips(); render();
+}
+function renderChips(){
+  const box = $("chips"); box.innerHTML = "";
+  TOPICS.forEach(t => {
+    const n = t === "All" ? CARDS.length : CARDS.filter(c => c.topic === t).length;
+    const b = document.createElement("button");
+    b.className = "chip" + (t === topic ? " active" : ""); b.setAttribute("role","tab"); b.dataset.topic = t;
+    b.innerHTML = esc(t) + '<span class="n">' + n + "</span>";
+    b.onclick = () => { topic = t; rebuild(); if (mode === "mc") mcNewRound(); else if (mode === "match") matchNewRound(); };
+    box.appendChild(b);
+  });
+}
+function flip(){ if (list.length) $("card").classList.toggle("flipped"); }
+function go(d){ if (!list.length) return; pos = (pos + d + list.length) % list.length; render(); }
+function mark(st){
+  if (!list.length) return;
+  const id = CARDS[list[pos]].id; progress[id] = st; save();
+  if (reviewOnly && st === "got"){ list.splice(pos,1); if (pos >= list.length) pos = 0; render(); }
+  else go(1);
+}
+$("card").addEventListener("click", flip);
+$("card").addEventListener("keydown", e => { if (e.key === "Enter"){ e.preventDefault(); flip(); } });
+$("prev").onclick = () => go(-1);
+$("next").onclick = () => go(1);
+$("got").onclick = () => mark("got");
+$("learning").onclick = () => mark("learning");
+$("shuffle").onclick = () => {
+  for (let i = order.length - 1; i > 0; i--){ const j = Math.floor(Math.random()*(i+1)); [order[i],order[j]] = [order[j],order[i]]; }
+  rebuild();
+};
+$("reviewMode").onclick = () => { reviewOnly = !reviewOnly; $("reviewMode").classList.toggle("on", reviewOnly); rebuild(); };
+$("reset").onclick = () => { if (confirm("Reset all Got it / Still learning progress on this device?")){ progress = {}; save(); rebuild(); } };
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT" || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (mode === "mc"){ mcKey(e); return; }
+  if (mode !== "cards") return;
+  if (e.key === "ArrowRight"){ e.preventDefault(); go(1); }
+  else if (e.key === "ArrowLeft"){ e.preventDefault(); go(-1); }
+  else if (e.key === " " || e.code === "Space"){ e.preventDefault(); flip(); }
+});
+let sx=null, sy=null, st0=0;
+const scene = $("scene");
+scene.addEventListener("touchstart", e => { const t = e.changedTouches[0]; sx = t.clientX; sy = t.clientY; st0 = Date.now(); }, {passive:true});
+scene.addEventListener("touchend", e => {
+  if (sx === null) return;
+  const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+  sx = null;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5 && Date.now() - st0 < 800){ e.preventDefault(); go(dx < 0 ? 1 : -1); }
+}, {passive:false});
+rebuild();
+/* ---------- shared helpers for the quiz modes ---------- */
+function shuffled(a){ a = a.slice(); for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]] = [a[j],a[i]]; } return a; }
+function pool(){ return CARDS.map((c,i)=>i).filter(i => topic === "All" || CARDS[i].topic === topic); }
+// Math and formula answers read best one step per line; other answers stay as normal wrapping text.
+function lines(s){ return /=/.test(s) ? s.split("; ").map(l => "<div>" + esc(l) + "</div>").join("") : esc(s); }
+const seen = {mc:{}, match:{}};
+// Take n cards from the current topic, preferring ones not seen yet in this mode.
+function draw(kind, n){
+  const p = pool(), key = topic, s = seen[kind][key] || (seen[kind][key] = new Set());
+  let fresh = shuffled(p.filter(i => !s.has(i)));
+  if (fresh.length < n){ const rest = shuffled(p.filter(i => fresh.indexOf(i) < 0)); s.clear(); fresh = fresh.concat(rest); }
+  const out = fresh.slice(0, n); out.forEach(i => s.add(i)); return out;
+}
+function cardKind(c){
+  if (/^MATH:/.test(c.front)) return "math";
+  if (/\(formula\)/i.test(c.front)) return "formula";
+  return /\d/.test(c.back) ? "number" : "words";
+}
+function setMode(m){
+  mode = m;
+  document.querySelectorAll(".mode").forEach(b => { const on = b.dataset.mode === m; b.classList.toggle("active", on); b.setAttribute("aria-selected", on); });
+  $("modeCards").hidden = m !== "cards"; $("modeMc").hidden = m !== "mc"; $("modeMatch").hidden = m !== "match"; $("modeTest").hidden = m !== "test";
+  document.body.classList.toggle("test-mode", m === "test");
+  if (m !== "match") stopTimer();
+  if (m === "mc" && (!mc || mc.topic !== topic)) mcNewRound();
+  if (m === "match"){ if (!mt || mt.topic !== topic) matchNewRound(); else if (!mt.finished) startTimer(); }
+  try { history.replaceState(null, "", "#" + ({cards: "flashcards", mc: "multiple-choice", match: "match", test: exHash()})[m]); } catch(e){}
+}
+document.querySelectorAll(".mode").forEach(b => b.onclick = () => setMode(b.dataset.mode));
+
+/* ---------- multiple choice ---------- */
+const MC_ROUND = 10;
+let mc = null;
+function options(i){
+  const c = CARDS[i], k = cardKind(c), used = new Set([c.back]), out = [];
+  const add = s => { if (out.length < 3 && !used.has(s)){ used.add(s); out.push(s); } };
+  shuffled(TRAPS[c.id] || []).forEach(add);           // common mistakes first (math and formula cards)
+  const numeric = x => x === "math" || x === "formula" || x === "number";
+  const ranked = shuffled(CARDS.map((d,j)=>j).filter(j => j !== i)).map(j => {
+    const d = CARDS[j], dk = cardKind(d);
+    let score = (d.topic === c.topic ? 4 : 0) + (dk === k ? 3 : (numeric(dk) === numeric(k) ? 1 : 0));
+    return {s: d.back, score};
+  }).sort((a,b) => b.score - a.score);
+  ranked.forEach(r => add(r.s));
+  return shuffled([{text: c.back, ok: true}].concat(out.map(s => ({text: s, ok: false}))));
+}
+function mcStart(list){
+  mc = {topic, list, pos: 0, score: 0, missed: [], answered: false, opts: null};
+  mcRender();
+}
+function mcNewRound(){ mcStart(draw("mc", MC_ROUND)); }
+function mcRender(){
+  const box = $("modeMc");
+  if (!mc.list.length){ box.innerHTML = '<div class="empty">No cards in this topic.</div>'; return; }
+  if (mc.pos >= mc.list.length){ return mcSummary(); }
+  const i = mc.list[mc.pos], c = CARDS[i];
+  if (!mc.opts) mc.opts = options(i);
+  box.innerHTML =
+    '<div class="qbar"><span id="mcCount">Question ' + (mc.pos + 1) + ' of ' + mc.list.length + '</span><span class="sub" id="mcScore">Score: ' + mc.score + ' right</span></div>' +
+    '<div class="qcard"><span class="tag">' + esc(c.topic) + '</span><div class="qtext" id="mcQ">' + esc(c.front) + '</div></div>' +
+    '<div class="opts" id="mcOpts" role="list">' + mc.opts.map((o,k) =>
+      '<button class="opt" data-k="' + k + '"><span class="letter">' + "ABCD"[k] + '</span><span class="otext">' + lines(o.text) + '</span></button>').join("") + '</div>' +
+    '<div id="mcFb" aria-live="polite"></div>';
+  box.querySelectorAll(".opt").forEach(b => b.onclick = () => mcAnswer(+b.dataset.k));
+}
+function mcAnswer(k){
+  if (mc.answered) return;
+  mc.answered = true;
+  const ok = mc.opts[k].ok, btns = $("modeMc").querySelectorAll(".opt");
+  btns.forEach((b,j) => { b.disabled = true; if (mc.opts[j].ok) b.classList.add("right"); else if (j === k) b.classList.add("wrong"); else b.classList.add("dim"); });
+  if (ok) mc.score++; else mc.missed.push(mc.list[mc.pos]);
+  $("mcScore").textContent = "Score: " + mc.score + " right";
+  const last = mc.pos + 1 >= mc.list.length;
+  $("mcFb").innerHTML = (ok ? '<div class="fb ok">&#x2713; Correct!</div>'
+      : '<div class="fb no">&#x2717; Not quite. The correct answer is shown in green.</div>') +
+    '<button class="btn primary" id="mcNext">' + (last ? "See results" : "Next question &rarr;") + '</button>';
+  $("mcNext").onclick = mcNext;
+  $("mcNext").focus({preventScroll: true});
+}
+function mcNext(){ mc.pos++; mc.answered = false; mc.opts = null; mcRender(); window.scrollTo({top: 0}); }
+function mcSummary(){
+  const n = mc.list.length, pct = Math.round(100 * mc.score / n), m = mc.missed.length;
+  $("modeMc").innerHTML = '<div class="qcard summary" id="mcSummary"><div>Round finished</div><div class="big">' + mc.score + ' / ' + n + '</div><div>' + pct + '% correct' +
+    (m ? '' : ' &mdash; perfect round!') + '</div>' +
+    (m ? '<ul class="missed">' + mc.missed.map(i => '<li><b>' + esc(CARDS[i].front) + '</b>' + lines(CARDS[i].back) + '</li>').join("") + '</ul>' : '') +
+    (m ? '<button class="btn learn primary" id="mcRetry">Retry the ' + m + ' missed question' + (m > 1 ? "s" : "") + '</button>' : '') +
+    '<button class="btn primary" id="mcAgain">New round</button></div>';
+  if (m) $("mcRetry").onclick = () => mcStart(shuffled(mc.missed));
+  $("mcAgain").onclick = mcNewRound;
+}
+function mcKey(e){
+  if (!mc || mc.pos >= mc.list.length) return;
+  const k = "1234".indexOf(e.key) >= 0 ? "1234".indexOf(e.key) : "abcd".indexOf(e.key.toLowerCase());
+  if (!mc.answered && k >= 0 && e.key.length === 1){ e.preventDefault(); mcAnswer(k); }
+  else if (mc.answered && (e.key === "Enter" || e.key === "ArrowRight") && document.activeElement.id !== "mcNext"){ e.preventDefault(); mcNext(); }
+}
+
+/* ---------- match ---------- */
+let mt = null, timerId = null;
+function roundSize(){ return window.matchMedia("(min-width: 600px)").matches ? 6 : 5; }
+function fmt(ms){ const s = Math.floor(ms / 1000); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); }
+function tick(){ if (mt && $("mtTime")) $("mtTime").textContent = fmt(mt.elapsed + (mt.since ? Date.now() - mt.since : 0)); }
+function startTimer(){ if (!mt || mt.finished || mt.since) return; mt.since = Date.now(); timerId = setInterval(tick, 250); }
+function stopTimer(){ if (mt && mt.since){ mt.elapsed += Date.now() - mt.since; mt.since = 0; } clearInterval(timerId); timerId = null; }
+function matchNewRound(){
+  stopTimer();
+  const box = $("modeMatch"), p = pool();
+  if (p.length < 2){ mt = {topic, finished: true, elapsed: 0}; box.innerHTML = '<div class="empty">This topic has only one card, so there is nothing to match. Pick another topic or All.</div>'; return; }
+  const ids = draw("match", Math.min(roundSize(), p.length));
+  mt = {topic, ids, matched: new Set(), mistakes: 0, sel: null, elapsed: 0, since: 0, finished: false};
+  const item = (i, side) => '<button class="mi ' + side + '" data-i="' + i + '" data-side="' + side + '">' + (side === "term" ? esc(CARDS[i].front) : lines(CARDS[i].back)) + '</button>';
+  box.innerHTML =
+    '<div class="qbar"><span>Time <span id="mtTime">0:00</span></span><span class="sub">Mistakes: <span id="mtMiss">0</span> &middot; Pairs: <span id="mtPairs">0</span>/' + ids.length + '</span>' +
+    '<button class="tbtn" id="mtNew">New round</button></div>' +
+    '<div id="mtDone" aria-live="polite"></div>' +
+    '<p class="mhelp">Tap a term, then tap the answer that goes with it.</p>' +
+    '<div class="mgrid"><div class="mcol" id="mtTerms"><h2>Terms</h2>' + shuffled(ids).map(i => item(i, "term")).join("") + '</div>' +
+    '<div class="mcol" id="mtDefs"><h2>Answers</h2>' + shuffled(ids).map(i => item(i, "def")).join("") + '</div></div>';
+  $("mtNew").onclick = matchNewRound;
+  box.querySelectorAll(".mi").forEach(b => b.onclick = () => matchTap(b));
+  if (mode === "match") startTimer();
+}
+function matchTap(b){
+  if (mt.finished || b.classList.contains("done")) return;
+  startTimer();
+  if (!mt.sel || mt.sel.dataset.side === b.dataset.side){   // first pick, or switch pick in the same column
+    if (mt.sel) mt.sel.classList.remove("sel");
+    if (mt.sel === b){ mt.sel = null; return; }
+    mt.sel = b; b.classList.add("sel"); return;
+  }
+  const a = mt.sel; mt.sel = null; a.classList.remove("sel");
+  if (a.dataset.i === b.dataset.i){
+    [a,b].forEach(x => { x.classList.add("done"); x.disabled = true; });
+    mt.matched.add(+a.dataset.i);
+    $("mtPairs").textContent = mt.matched.size;
+    if (mt.matched.size === mt.ids.length) matchFinish();
+  } else {
+    mt.mistakes++; $("mtMiss").textContent = mt.mistakes;
+    [a,b].forEach(x => { x.classList.remove("bad"); void x.offsetWidth; x.classList.add("bad"); setTimeout(() => x.classList.remove("bad"), 650); });
+  }
+}
+function matchFinish(){
+  stopTimer(); mt.finished = true; tick();
+  $("mtDone").innerHTML = '<div class="mdone" id="mtDoneMsg">&#x1F389; Round complete! Time ' + fmt(mt.elapsed) + ' &middot; ' + mt.mistakes + ' mistake' + (mt.mistakes === 1 ? "" : "s") +
+    '<button class="btn primary" id="mtAgain">New round</button></div>';
+  $("mtAgain").onclick = matchNewRound;
+}
+document.addEventListener("visibilitychange", () => { if (mode !== "match") return; if (document.hidden) stopTimer(); else startTimer(); });
+/* ---------- practice exams: 3 versions, 20 questions each, scored instantly ---------- */
+const EXAMS = {"1": [{"topic": "Chapter 13: Forecasting", "q": "When building a forecast, which line do you forecast first, because most other lines are tied to it?", "options": ["Capital spending on equipment and buildings", "Revenue (sales)", "Net income", "The cost of capital"], "answer": 1, "explain": "Start with revenue, then forecast costs, working capital and equipment as ratios to revenue. Net income comes near the end, after costs, interest and taxes.", "numeric": false}, {"topic": "Chapter 13: Forecasting", "q": "Revenue is $1,000 and grows 8%. Net operating profit less adjusted taxes is 10% of revenue. Invested capital turnover (revenue ÷ invested capital) is 2.0, and invested capital today is $500. What is next year's free cash flow?", "options": ["$108", "$60", "−$432", "$68"], "answer": 3, "explain": "Revenue = $1,000 × 1.08 = $1,080. Operating profit after taxes = 10% × $1,080 = $108. Invested capital = $1,080 ÷ 2.0 = $540, so net investment = $540 − $500 = $40. Free cash flow = $108 − $40 = $68. Common mistakes: $108 forgets to subtract the new investment; $60 uses this year's revenue ($100 − $40); −$432 subtracts all of next year's invested capital instead of just the increase.", "numeric": true}, {"topic": "Chapter 13: Forecasting", "q": "Most operating working capital items (like accounts receivable and inventory) are usually forecast as:", "options": ["A percentage of revenue (or days of sales)", "A fixed dollar amount copied from last year", "A percentage of net income", "A plug that makes the balance sheet balance"], "answer": 0, "explain": "Tie each operating item to its economic driver, usually revenue. The balance sheet plug is cash or debt, never an operating item.", "numeric": false}, {"topic": "Chapter 13: Forecasting", "q": "A company's new projects earn a return on invested capital of 7%, and its weighted average cost of capital (the blended rate its lenders and shareholders require) is 9%. Faster growth in these projects will:", "options": ["Create value, because more revenue always adds value", "Have no effect on value", "Destroy value, because the return is below the cost of capital", "Create value as long as margins stay the same"], "answer": 2, "explain": "Growth adds value only when the return on new capital is above the cost of capital. Here each dollar invested earns 7% but costs 9%.", "numeric": false}, {"topic": "Chapter 13: Forecasting", "q": "After forecasting the income statement and the operating items on the balance sheet, how do you make the balance sheet balance?", "options": ["Use a plug of excess cash or new debt (a financing item)", "Change revenue until it balances", "Plug with property, plant and equipment", "Plug with accounts receivable"], "answer": 0, "explain": "Koller balances the forecast with cash or debt (financing items), never with operating items that drive value.", "numeric": false}, {"topic": "Chapter 14: Continuing value", "q": "Year-10 net operating profit less adjusted taxes (NOPAT) is $200; year 11 is $208. Long-run growth = 4%, return on new invested capital (RONIC) = 16%, weighted average cost of capital (WACC) = 9%. Using the key value driver formula, what is the continuing value at the end of year 10?", "options": ["$3,000", "$4,160", "$3,120", "$2,311"], "answer": 2, "explain": "Continuing value = next year's NOPAT × (1 − growth ÷ RONIC) ÷ (WACC − growth) = $208 × (1 − 0.04 ÷ 0.16) ÷ (0.09 − 0.04) = $208 × 0.75 ÷ 0.05 = $3,120. Common mistakes: $3,000 uses year-10 NOPAT ($200); $4,160 leaves out the reinvestment term (the aggressive-growth formula); $2,311 divides by WACC only.", "numeric": true}, {"topic": "Chapter 14: Continuing value", "q": "Next year's net operating profit less adjusted taxes is $90, long-run growth is 3%, and the return on new invested capital equals the weighted average cost of capital of 10%. What is the continuing value?", "options": ["$1,286", "$900", "$630", "$3,000"], "answer": 1, "explain": "When the return on new capital equals the cost of capital, growth adds no value: $90 × (1 − 0.03 ÷ 0.10) ÷ (0.10 − 0.03) = $90 ÷ 0.10 = $900 (the convergence formula). Common mistakes: $1,286 = $90 ÷ 0.07, the aggressive-growth formula; $630 multiplies by the reinvestment term but divides by 10% only; $3,000 divides by growth.", "numeric": true}, {"topic": "Chapter 14: Continuing value", "q": "The continuing value at the end of a 5-year forecast is $1,000 and the weighted average cost of capital is 10%. What is its present value today?", "options": ["$564.47", "$683.01", "$1,000.00", "$620.92"], "answer": 3, "explain": "The continuing value is already a value as of the end of year 5, so discount 5 years: $1,000 ÷ 1.10 to the 5th power = $620.92. Common mistakes: $564.47 discounts 6 years; $683.01 discounts 4 years; $1,000 forgets to discount.", "numeric": true}, {"topic": "Chapter 14: Continuing value", "q": "Setting the return on new invested capital equal to the weighted average cost of capital in the continuing value means:", "options": ["The competitive advantage ends right away and all returns fall to the cost of capital", "The company stops growing", "The continuing value becomes zero", "New investment earns just its cost, but existing capital keeps earning its old, higher return"], "answer": 3, "explain": "The return on new invested capital applies only to NEW capital, so the average return fades slowly toward the cost of capital (Koller: 18% falls to about 14% after 10 years).", "numeric": false}, {"topic": "Chapter 14: Continuing value", "q": "Making the explicit forecast period longer (for example 10 years instead of 5), with the same assumptions, will:", "options": ["Not change total value; it only shifts value between the forecast period and the continuing value", "Raise total value, because more years are counted", "Lower total value, because of more discounting", "Make the continuing value a bigger share of value"], "answer": 0, "explain": "Forecast length changes the split, not the total (Koller's example is $893 million either way). A longer forecast makes the continuing value a smaller share, not a bigger one.", "numeric": false}, {"topic": "Chapter 15: Cost of capital", "q": "Market value of equity is $60 million and debt is $40 million. Cost of equity is 10%, the yield on new debt is 6%, and the marginal tax rate is 25%. What is the weighted average cost of capital?", "options": ["8.40%", "6.70%", "7.80%", "7.25%"], "answer": 2, "explain": "Weighted average cost of capital = 60% × 10% + 40% × 6% × (1 − 0.25) = 6.0% + 1.8% = 7.80%. Common mistakes: 8.40% forgets the tax benefit of debt; 6.70% swaps the debt and equity weights; 7.25% uses 50/50 weights.", "numeric": true}, {"topic": "Chapter 15: Cost of capital", "q": "Risk-free rate is 4%, beta is 1.3, and the expected stock market return is 9.5%. Using the capital asset pricing model, what is the cost of equity?", "options": ["16.35%", "11.15%", "7.15%", "9.50%"], "answer": 1, "explain": "Market risk premium = 9.5% − 4% = 5.5%. Cost of equity = 4% + 1.3 × 5.5% = 11.15%. Common mistakes: 16.35% multiplies beta by the market return instead of the premium; 7.15% leaves out the risk-free rate; 9.50% is just the market return.", "numeric": true}, {"topic": "Chapter 15: Cost of capital", "q": "Similar companies have a levered beta (beta including the effect of their debt) of 1.5 and a debt-to-equity ratio of 0.5. Using levered beta = unlevered beta × (1 + debt ÷ equity), what is the beta for your company at a target debt-to-equity ratio of 0.25?", "options": ["1.875", "1.00", "1.25", "1.20"], "answer": 2, "explain": "Unlevered beta = 1.5 ÷ 1.5 = 1.0. Relevered = 1.0 × (1 + 0.25) = 1.25. Common mistakes: 1.875 relevers without unlevering first; 1.00 stops at the unlevered beta; 1.20 divides by your own (1 + 0.25).", "numeric": true}, {"topic": "Chapter 15: Cost of capital", "q": "Which weights should you use for debt and equity in the weighted average cost of capital?", "options": ["Book (accounting) values from the balance sheet", "The target mix of debt and equity at market values", "Today's book debt and market equity", "Whatever mix gives the lowest cost of capital"], "answer": 1, "explain": "Koller uses a target capital structure measured at market values, because that is what investors could buy or sell the claims for today.", "numeric": false}, {"topic": "Chapter 15: Cost of capital", "q": "Koller's standard choices for the risk-free rate and the market risk premium are:", "options": ["The 3-month Treasury bill rate, and a market risk premium of about 5% to 6%", "The 10-year government bond yield, and a market risk premium of about 10% to 12%", "The 30-year bond yield, and a premium updated every month", "The 10-year government bond yield, and a market risk premium of about 5% to 6%"], "answer": 3, "explain": "Use a long-term government bond to match long-lived cash flows, and one steady 5% to 6% premium.", "numeric": false}, {"topic": "Harvard Business Review article", "q": "In the article, a $20 million project returns $3.25 million a year for 10 years. Using a 9% cost of capital (1 point below the true 10%), the net present value (value today of the future cash minus the cost) is about:", "options": ["+$0.9 million", "$0 (break-even)", "−$0.9 million", "+$12.5 million"], "answer": 0, "explain": "$3.25 million × the 10-year annuity factor at 9% (6.418) = $20.86 million, so the net present value is about +$0.86 million (the article rounds to about $1 million). At 10% it is about $0; at 11% about −$0.9 million. $12.5 million adds up the cash with no discounting.", "numeric": true}, {"topic": "Harvard Business Review article", "q": "A company's new borrowing would cost 7%; its old bonds pay 5%. The marginal tax rate is 25% and the effective tax rate is 15%. What should the after-tax cost of debt be?", "options": ["3.75%", "5.25%", "5.95%", "7.00%"], "answer": 1, "explain": "Use the rate on NEW borrowing times (1 − marginal tax rate): 7% × 0.75 = 5.25%. Common mistakes: 3.75% uses the old bond rate; 5.95% uses the effective tax rate; 7.00% forgets the tax benefit.", "numeric": true}, {"topic": "Harvard Business Review article", "q": "If a company uses a cost of capital that is LOWER than its true cost, the main danger is that it will:", "options": ["Fund projects that actually destroy value", "Pass up good projects", "Pay higher taxes", "Get a higher credit rating"], "answer": 0, "explain": "Too low a rate makes bad projects look good; too high a rate makes you pass up good ones.", "numeric": false}, {"topic": "Harvard Business Review article", "q": "For a project unlike the company's main business (like Microsoft building a computer-chip lab), the article says the right hurdle rate is:", "options": ["The company's own cost of capital", "The company's own rate plus 1 percentage point", "The risk-free rate", "The cost of capital of pure-play companies that do only that kind of business"], "answer": 3, "explain": "Only about half of the companies that adjust for project risk do it this way; 37% make no adjustment at all.", "numeric": false}, {"topic": "Harvard Business Review article", "q": "What did the Association for Financial Professionals survey in the article find?", "options": ["Almost all companies use market-value weights", "Most companies use the marginal tax rate", "About 90% use the capital asset pricing model, yet no question got the same answer from a majority", "Companies agree closely on the market risk premium"], "answer": 2, "explain": "Same tools, different inputs. Only 23% used market-value weights and only 29% the marginal tax rate.", "numeric": false}], "2": [{"topic": "Chapter 13: Forecasting", "q": "Revenue is $2,000 and grows 5%. Net operating profit less adjusted taxes is 9% of revenue. Invested capital will be $1,400 next year, up from $1,300 today. What is next year's free cash flow?", "options": ["$189", "$80", "$89", "−$1,211"], "answer": 2, "explain": "Revenue = $2,000 × 1.05 = $2,100. Operating profit after taxes = 9% × $2,100 = $189. Net investment = $1,400 − $1,300 = $100. Free cash flow = $189 − $100 = $89. Common mistakes: $189 forgets to subtract the investment; $80 uses this year's revenue ($180 − $100); −$1,211 subtracts all of next year's invested capital.", "numeric": true}, {"topic": "Chapter 13: Forecasting", "q": "Net operating profit less adjusted taxes is $120. Invested capital is $800 at the start of the year and $1,000 at the end. Using start-of-year invested capital, what is the return on invested capital?", "options": ["15.0%", "12.0%", "13.3%", "60.0%"], "answer": 0, "explain": "Return on invested capital = $120 ÷ $800 = 15.0%. Common mistakes: 12.0% uses end-of-year capital ($1,000); 13.3% uses the average ($900); 60.0% divides by only the $200 increase.", "numeric": true}, {"topic": "Chapter 13: Forecasting", "q": "Why does Koller warn against typing computed numbers (hard-coding) into a forecast model?", "options": ["Accounting rules forbid it", "It makes the balance sheet balance too easily", "It raises the forecast's return on invested capital", "One change to a driver will no longer flow through the whole model, so scenarios break"], "answer": 3, "explain": "Keep raw inputs separate from formulas so changing one assumption updates every statement. That is what makes scenario testing possible.", "numeric": false}, {"topic": "Chapter 13: Forecasting", "q": "Koller says forecasters often waste time on:", "options": ["Forecasting revenue first", "Small line items in far-off years", "Checking forecast return on invested capital against competitors", "Making the balance sheet balance"], "answer": 1, "explain": "Focus on the big value drivers (growth, margins, return on invested capital). Precise accounts receivable in year 10 hardly matters.", "numeric": false}, {"topic": "Chapter 13: Forecasting", "q": "For a company that is growing, you would usually expect capital spending to be:", "options": ["Equal to depreciation", "Larger than depreciation, so net investment is above zero", "Zero", "Smaller than depreciation"], "answer": 1, "explain": "To grow, a company must add equipment and buildings faster than old ones wear out. Capital spending = increase in net property, plant and equipment + depreciation.", "numeric": false}, {"topic": "Chapter 14: Continuing value", "q": "Next year's net operating profit less adjusted taxes is $150. Long-run growth is 3%, the return on new invested capital is 12%, and the weighted average cost of capital is 8%. Using the key value driver formula, what is the continuing value?", "options": ["$3,000", "$1,875", "$1,406.25", "$2,250"], "answer": 3, "explain": "Reinvestment rate = 3% ÷ 12% = 25%. Continuing value = $150 × (1 − 0.25) ÷ (0.08 − 0.03) = $112.50 ÷ 0.05 = $2,250. Common mistakes: $3,000 = $150 ÷ 0.05 leaves out reinvestment (the aggressive-growth formula); $1,875 = $150 ÷ 0.08 is the convergence formula, which only applies when the return on new capital equals the cost of capital; $1,406.25 divides by 8% instead of 8% − 3%.", "numeric": true}, {"topic": "Chapter 14: Continuing value", "q": "Next year's net operating profit less adjusted taxes is $60. The weighted average cost of capital is 8%, long-run growth is 2%, and the return on new invested capital equals the cost of capital. What is the continuing value?", "options": ["$750", "$1,000", "$3,000", "$562.50"], "answer": 0, "explain": "When the return on new capital equals the cost of capital, use the convergence formula: $60 ÷ 0.08 = $750 (check: $60 × (1 − 0.02 ÷ 0.08) ÷ 0.06 = $750). Common mistakes: $1,000 = $60 ÷ (0.08 − 0.02), the aggressive-growth formula; $3,000 divides by growth; $562.50 takes out reinvestment but divides by 8% only.", "numeric": true}, {"topic": "Chapter 14: Continuing value", "q": "A continuing value of $2,000 sits at the end of an 8-year forecast. The weighted average cost of capital is 9%. What is its present value today?", "options": ["$920.86", "$1,094.07", "$1,003.73", "$1,162.79"], "answer": 2, "explain": "Discount 8 years: $2,000 ÷ 1.09 to the 8th power = $1,003.73. Common mistakes: $920.86 discounts 9 years; $1,094.07 discounts 7 years; $1,162.79 uses simple interest, $2,000 ÷ (1 + 8 × 0.09).", "numeric": true}, {"topic": "Chapter 14: Continuing value", "q": "Why does the “aggressive-growth” formula (next year's operating profit after taxes ÷ (cost of capital − growth)) overstate continuing value?", "options": ["It assumes the company grows without investing anything, as if new capital earned an endless return", "It discounts one year too many", "It uses this year's profit instead of next year's", "It assumes no growth at all"], "answer": 0, "explain": "Growth needs reinvestment. The key value driver formula takes out the reinvestment rate (growth ÷ return on new invested capital); the aggressive formula skips it.", "numeric": false}, {"topic": "Chapter 14: Continuing value", "q": "Continuing value is 75% of a company's value. What does that tell you?", "options": ["Most of the value comes after the competitive advantage ends", "The forecast period is too short and must be extended", "Not that value is created late: early years carry heavy investment, so their cash flows look small", "The company is overvalued"], "answer": 2, "explain": "Continuing value is often 60% to 90% of total value. Looked at by business units or with economic profit, much less of the value appears to come from the continuing value.", "numeric": false}, {"topic": "Chapter 15: Cost of capital", "q": "Market value of equity is $75 billion and debt is $25 billion. Cost of equity is 11%, the yield on new debt is 5%, and the marginal tax rate is 24%. What is the weighted average cost of capital?", "options": ["9.50%", "9.20%", "5.60%", "7.40%"], "answer": 1, "explain": "75% × 11% + 25% × 5% × (1 − 0.24) = 8.25% + 0.95% = 9.20%. Common mistakes: 9.50% forgets the tax benefit; 5.60% swaps the weights; 7.40% uses 50/50 weights.", "numeric": true}, {"topic": "Chapter 15: Cost of capital", "q": "Risk-free rate is 3.5%, beta is 0.8, and the market risk premium is 6%. Using the capital asset pricing model, what is the cost of equity?", "options": ["4.80%", "9.50%", "5.50%", "8.30%"], "answer": 3, "explain": "Cost of equity = 3.5% + 0.8 × 6% = 8.30%. Common mistakes: 4.80% leaves out the risk-free rate; 9.50% ignores beta (3.5% + 6%); 5.50% treats 6% as the market return and subtracts the risk-free rate again (3.5% + 0.8 × 2.5%).", "numeric": true}, {"topic": "Chapter 15: Cost of capital", "q": "Similar companies have an average levered beta of 1.2 and a debt-to-equity ratio of 0.6. Your target debt-to-equity ratio is 1.0. Using levered beta = unlevered beta × (1 + debt ÷ equity), what beta should you use?", "options": ["1.50", "0.75", "1.92", "2.40"], "answer": 0, "explain": "Unlevered beta = 1.2 ÷ 1.6 = 0.75. Relevered = 0.75 × (1 + 1.0) = 1.50. Common mistakes: 0.75 stops at the unlevered beta; 1.92 relevers 1.2 without unlevering (1.2 × 1.6); 2.40 applies your target to the levered beta (1.2 × 2).", "numeric": true}, {"topic": "Chapter 15: Cost of capital", "q": "A company's old bonds pay a 4% coupon but now trade at a yield to maturity of 6.5%. What pre-tax cost of debt does Koller use?", "options": ["4%, the coupon rate", "6.5%, the yield to maturity", "5.25%, the average of the two", "The risk-free rate"], "answer": 1, "explain": "Use the yield to maturity: the return a lender would require today. The coupon is a historical rate set when the bonds were issued.", "numeric": false}, {"topic": "Chapter 15: Cost of capital", "q": "What does a beta of 1.4 mean?", "options": ["The stock earns 1.4% more than the risk-free rate", "The company has $1.40 of debt per $1 of equity", "The stock tends to move 1.4 times as much as the whole stock market", "The stock moves less than the market"], "answer": 2, "explain": "Beta measures how much a stock swings with the market. 1.0 is average; above 1 swings more, so investors want a higher return.", "numeric": false}, {"topic": "Harvard Business Review article", "q": "In the article's example, a $20 million project returns $3.25 million a year for 10 years. If the company uses 11% (1 point above the true 10%), the net present value is about:", "options": ["+$0.9 million", "$0 (break-even)", "+$12.5 million", "−$0.9 million"], "answer": 3, "explain": "$3.25 million × the 10-year annuity factor at 11% (5.889) = $19.14 million, so the net present value is about −$0.86 million (the article rounds to about −$1 million). A good break-even project gets rejected. +$0.9 million is the answer at 9%; +$12.5 million ignores discounting.", "numeric": true}, {"topic": "Harvard Business Review article", "q": "About what share of surveyed companies use discounted cash flow analysis to judge investments?", "options": ["About 25%", "About 50%", "Nearly 100%", "About 80%"], "answer": 3, "explain": "About 80% use discounted cash flow, and about 90% of companies with over $1 billion in sales do. About 90% use the capital asset pricing model.", "numeric": false}, {"topic": "Harvard Business Review article", "q": "Which tax rate did most surveyed companies use for the cost of debt, and which is correct?", "options": ["Most used the marginal rate, which is correct", "Most used the effective rate (64%); the marginal rate is correct", "Most used no tax rate, which is correct", "Most used the marginal rate; the effective rate is correct"], "answer": 1, "explain": "The marginal rate (on the next dollar of profit) is what new interest actually saves. Only 29% used it.", "numeric": false}, {"topic": "Harvard Business Review article", "q": "Delta Air Lines and IBM used book (accounting) equity instead of market equity for their weights. According to the article, their cost of capital came out:", "options": ["2% to 3% too high", "Almost the same", "2% to 3% too low", "About 10% too high"], "answer": 2, "explain": "Book and market values can be 10 times apart. Using book equity gave too much weight to cheaper debt, so the cost of capital was 2% to 3% too low.", "numeric": false}, {"topic": "Harvard Business Review article", "q": "How did 37% of surveyed companies handle projects with different risk from their main business?", "options": ["They made no adjustment and used the company's own rate for everything", "They used pure-play companies' cost of capital", "They added 1 percentage point or more by judgment", "They used the risk-free rate"], "answer": 0, "explain": "Nearly 70% adjust for project risk, but only half of those use pure-play companies; the rest add a guessed amount.", "numeric": false}], "3": [{"topic": "Chapter 13: Forecasting", "q": "Accounts receivable are forecast at 40 days of sales. Next year's revenue is $1,095 million. What is next year's accounts receivable?", "options": ["$43.8 million", "$27.4 million", "$438 million", "$120 million"], "answer": 3, "explain": "Accounts receivable = revenue × days ÷ 365 = $1,095 million × 40 ÷ 365 = $120 million. Common mistakes: $43.8 million treats 40 days as 4% of revenue; $27.4 million divides revenue by 40; $438 million treats it as 40% of revenue.", "numeric": true}, {"topic": "Chapter 13: Forecasting", "q": "Net property, plant and equipment grows from $500 to $560 next year, and depreciation is $45. What is next year's capital spending?", "options": ["$60", "$105", "$15", "$45"], "answer": 1, "explain": "Capital spending = increase in net property, plant and equipment + depreciation = $60 + $45 = $105. Common mistakes: $60 forgets that depreciation also has to be replaced; $15 subtracts depreciation; $45 counts only replacement.", "numeric": true}, {"topic": "Chapter 13: Forecasting", "q": "A connected (integrated) forecast of the income statement and balance sheet should give you which numbers for valuation?", "options": ["Operating profit after taxes, invested capital, return on invested capital and free cash flow", "Only earnings per share", "The share price directly", "Only the tax rate"], "answer": 0, "explain": "Koller forecasts the full statements first, then pulls out net operating profit less adjusted taxes, invested capital, return on invested capital and free cash flow.", "numeric": false}, {"topic": "Chapter 13: Forecasting", "q": "Interest expense depends on debt, and debt depends on how much cash the company needs. In a forecast this creates:", "options": ["A balanced balance sheet", "Higher free cash flow", "A circular reference (interest and debt depend on each other)", "A higher return on invested capital"], "answer": 2, "explain": "Handle it by letting the spreadsheet iterate, or by charging interest on last year's debt balance.", "numeric": false}, {"topic": "Chapter 13: Forecasting", "q": "A forecast for a company in a highly competitive industry shows its return on invested capital rising from 12% to 40% and staying there. What check does Koller suggest?", "options": ["None, a higher return is always better", "Raise the cost of capital until value stays the same", "Compare the forecast returns with competitors and ask whether the advantage can really last", "Plug the balance sheet with accounts receivable"], "answer": 2, "explain": "Forecast returns must fit competitive reality. Lasting returns far above peers need a durable advantage, like strong brands or patents.", "numeric": false}, {"topic": "Chapter 14: Continuing value", "q": "Year-5 net operating profit less adjusted taxes is $100 and grows 4% a year from then on. The return on new invested capital is 20% and the weighted average cost of capital is 10%. Using the key value driver formula, what is the continuing value at the end of year 5?", "options": ["$1,386.67", "$1,333.33", "$1,733.33", "$1,040.00"], "answer": 0, "explain": "Next year's profit = $100 × 1.04 = $104. Reinvestment rate = 4% ÷ 20% = 20%. Continuing value = $104 × 0.80 ÷ (0.10 − 0.04) = $1,386.67. Common mistakes: $1,333.33 uses year-5 profit ($100); $1,733.33 = $104 ÷ 0.06 leaves out reinvestment; $1,040.00 = $104 ÷ 0.10 is the convergence formula, which assumes the return on new capital is only 10%.", "numeric": true}, {"topic": "Chapter 14: Continuing value", "q": "Economic profit version: invested capital at the end of the forecast is $1,000. Next year's return on invested capital is 12% and next year's net operating profit less adjusted taxes is $120. The weighted average cost of capital is 9%, long-run growth is 4%, and the return on new invested capital is 10%. What is the continuing value of economic profit?", "options": ["$333.33", "$1,440.00", "$600.00", "$440.00"], "answer": 3, "explain": "Next year's economic profit = $1,000 × (12% − 9%) = $30, and $30 ÷ 0.09 = $333.33. Present value of later economic profit = $120 × (4% ÷ 10%) × (10% − 9%) ÷ 9% = $5.33, and $5.33 ÷ (0.09 − 0.04) = $106.67. Total = $440.00. Check: invested capital $1,000 + $440 = $1,440, the key value driver answer. Common mistakes: $333.33 stops after the first part; $1,440 is the key value driver continuing value, which already includes invested capital; $600 = $30 ÷ 0.05 grows the existing economic profit.", "numeric": true}, {"topic": "Chapter 14: Continuing value", "q": "The continuing value at the end of year 5 is $2,000. The present value of the forecast-year free cash flows is $500, and the weighted average cost of capital is 10%. About what share of total value comes from the continuing value?", "options": ["80.0%", "71.3%", "69.3%", "28.7%"], "answer": 1, "explain": "Present value of the continuing value = $2,000 ÷ 1.10 to the 5th power = $1,241.84. Total = $1,741.84, so the share is $1,241.84 ÷ $1,741.84 = 71.3%. Common mistakes: 80.0% forgets to discount; 69.3% discounts 6 years; 28.7% is the forecast years' share.", "numeric": true}, {"topic": "Chapter 14: Continuing value", "q": "Which net operating profit less adjusted taxes should go into the continuing value formula?", "options": ["The last forecast year's profit, unchanged", "A normalized level for the first year after the forecast (mid-cycle, not a peak or a slump)", "The highest profit in the forecast", "The average profit of the past 10 years"], "answer": 1, "explain": "Use next year's profit at a sustainable level. A peak year overstates value and a slump understates it.", "numeric": false}, {"topic": "Chapter 14: Continuing value", "q": "An analyst sets the return on new invested capital equal to the cost of capital for a company with very strong brands, like Coca-Cola. Koller calls this:", "options": ["The correct default for every company", "Purposeful overconservatism, which overstates value", "Base-year extrapolation", "Naive overconservatism, which understates value"], "answer": 3, "explain": "Companies with lasting advantages (brands, patents) can keep earning more than their cost of capital on new investment. Assuming they can't understates value.", "numeric": false}, {"topic": "Chapter 15: Cost of capital", "q": "Book values put debt at 40% of capital, but the target capital structure at market values is 20% debt. Cost of equity is 9.5%, the yield on new debt is 5.5%, and the marginal tax rate is 20%. What is the weighted average cost of capital?", "options": ["8.70%", "7.46%", "8.48%", "5.42%"], "answer": 2, "explain": "Use market-value target weights: 80% × 9.5% + 20% × 5.5% × (1 − 0.20) = 7.60% + 0.88% = 8.48%. Common mistakes: 8.70% forgets the tax benefit; 7.46% uses the 40% book weight; 5.42% swaps the weights.", "numeric": true}, {"topic": "Chapter 15: Cost of capital", "q": "A company's bonds have a 4% coupon and a 6% yield to maturity. The marginal tax rate is 25%. What is the after-tax cost of debt?", "options": ["4.50%", "3.00%", "6.00%", "1.50%"], "answer": 0, "explain": "After-tax cost of debt = 6% × (1 − 0.25) = 4.50%. Common mistakes: 3.00% uses the coupon; 6.00% forgets the tax benefit; 1.50% multiplies by the tax rate instead of (1 − tax rate).", "numeric": true}, {"topic": "Chapter 15: Cost of capital", "q": "The industry's unlevered beta is 0.9 and your target debt-to-equity ratio is 0.5. The risk-free rate is 4% and the market risk premium is 5%. Using the capital asset pricing model, what is your cost of equity?", "options": ["10.75%", "8.50%", "6.75%", "7.00%"], "answer": 0, "explain": "Levered beta = 0.9 × (1 + 0.5) = 1.35. Cost of equity = 4% + 1.35 × 5% = 10.75%. Common mistakes: 8.50% uses the unlevered beta; 6.75% leaves out the risk-free rate; 7.00% divides instead of multiplies (0.9 ÷ 1.5 = 0.6).", "numeric": true}, {"topic": "Chapter 15: Cost of capital", "q": "Why does Koller prefer an industry average beta over one company's own measured beta?", "options": ["Industry betas are always higher, which is safer", "A company's own beta can't be measured", "One company's beta is noisy (big margin of error), and averaging similar companies gives a steadier estimate", "It removes the need for a market risk premium"], "answer": 2, "explain": "Unlever each similar company's beta, average them, then relever at your target debt-to-equity ratio.", "numeric": false}, {"topic": "Chapter 15: Cost of capital", "q": "Why is free cash flow discounted at the weighted average cost of capital rather than the cost of equity?", "options": ["Because the cost of equity is always lower", "Because tax rules require it", "Because free cash flow already subtracts interest", "Free cash flow is available to ALL investors (lenders and shareholders), so the rate must blend what all of them require"], "answer": 3, "explain": "The cash flow and the discount rate must match. Free cash flow is before any payments to lenders or shareholders, so it is discounted at the blended rate.", "numeric": false}, {"topic": "Harvard Business Review article", "q": "A company has book equity of $2 billion, market value of equity of $10 billion, and debt of $3 billion (book and market about equal). What debt weight should go into the weighted average cost of capital?", "options": ["60.0%", "23.1%", "30.0%", "76.9%"], "answer": 1, "explain": "Debt weight at market values = $3 billion ÷ ($3 billion + $10 billion) = 23.1%. Common mistakes: 60.0% uses book equity ($3 ÷ $5); 30.0% is the debt-to-equity ratio, not a weight; 76.9% is the equity weight.", "numeric": true}, {"topic": "Harvard Business Review article", "q": "Which risk-free rate did the largest group of surveyed companies use?", "options": ["The 10-year Treasury (46%)", "The 3-month Treasury bill", "The 5-year Treasury", "The 30-year Treasury bond"], "answer": 0, "explain": "46% used the 10-year Treasury, the same choice Koller recommends. Only 16% used the 3-month bill.", "numeric": false}, {"topic": "Harvard Business Review article", "q": "What did the survey find about the market risk premium?", "options": ["Nearly all used exactly 5%", "Most used more than 10%", "Companies update it every month", "About half used 5% to 6%, and about 1 in 4 seldom or never update it"], "answer": 3, "explain": "Answers ranged from below 3% to above 7%, a spread of more than 4 percentage points.", "numeric": false}, {"topic": "Harvard Business Review article", "q": "The authors estimate that a 1 percentage point drop in U.S. companies' cost of capital would lead them to invest about:", "options": ["$20 million more over 10 years", "$150 billion more over 3 years", "$2 trillion more each year", "No more at all"], "answer": 1, "explain": "That is why getting the rate right matters. The article says about $2 trillion of spending is at stake.", "numeric": false}, {"topic": "Harvard Business Review article", "q": "Nearly half of the surveyed finance leaders said their company's discount rate is probably off by:", "options": ["Less than 0.1 percentage point", "Exactly 5 percentage points", "1 percentage point or more", "Nothing, because everyone uses the same inputs"], "answer": 2, "explain": "And in the $20 million example, 1 point is the difference between break-even and about ±$1 million.", "numeric": false}]};
+let exVer = 1;
+const EXKEY = "bus176-kc4-exams-v1";
+let exStates = {1: {picks: {}}, 2: {picks: {}}, 3: {picks: {}}};
+try { const sv = JSON.parse(localStorage.getItem(EXKEY) || "null"); if (sv && sv[1] && sv[2] && sv[3]) exStates = sv; } catch(e){}
+function exSave(){ try { localStorage.setItem(EXKEY, JSON.stringify(exStates)); } catch(e){} }
+let ex = exStates[1];
+function exHash(){ return "exam-" + exVer; }
+function exScore(){ const Q = EXAMS[exVer]; let s = 0, n = 0; Q.forEach((q,i) => { if (ex.picks[i] != null){ n++; if (ex.picks[i] === q.answer) s++; } }); return {s, n, N: Q.length}; }
+function exSetVer(v){ exVer = v; ex = exStates[v]; exRender(); if (mode === "test"){ try { history.replaceState(null, "", "#" + exHash()); } catch(e){} } }
+function exQ(i){
+  const q = EXAMS[exVer][i], pick = ex.picks[i], done = pick != null, right = pick === q.answer;
+  return '<div class="qcard ptq" data-q="' + i + '"><span class="tag">Question ' + (i + 1) + ' &middot; ' + esc(q.topic) + '</span>' +
+    (done ? '<span class="status ' + (right ? 'got">&#x2713; Right' : 'wrongtag">&#x2717; Wrong') + '</span>' : '') +
+    '<div class="pq">' + esc(q.q) + '</div><div class="opts">' + q.options.map((o,k) => {
+      let cls = "opt";
+      if (done) cls += k === q.answer ? " right" : k === pick ? " wrong" : " dim";
+      return '<button class="' + cls + '" data-k="' + k + '"' + (done ? " disabled" : "") + '><span class="letter">' + "ABCD"[k] + '</span><span class="otext">' + esc(o) + '</span></button>';
+    }).join("") + '</div>' +
+    (done ? '<div class="fb exp ' + (right ? 'ok' : 'no') + '"><b>' + (right ? 'Correct.' : 'Not quite. The answer is ' + "ABCD"[q.answer] + '.') + '</b> ' + esc(q.explain) + '</div>' : '') + '</div>';
+}
+function exBar(){
+  const {s, n, N} = exScore();
+  return n === N ? 'Final score: ' + s + ' / ' + N + ' (' + Math.round(100 * s / N) + '%)' : 'Score: ' + s + ' right &middot; ' + n + ' of ' + N + ' answered';
+}
+function exSummary(){
+  const {s, n, N} = exScore(), Q = EXAMS[exVer];
+  if (n < N) return '<button class="btn" id="exReset" style="width:100%;margin-top:4px">Start this version over</button>';
+  const topics = TOPICS.slice(1).map(t => { const idx = Q.map((q,i) => i).filter(i => Q[i].topic === t); return [t, idx.filter(i => ex.picks[i] === Q[i].answer).length, idx.length]; });
+  const nextV = exVer % 3 + 1;
+  return '<div class="qcard summary" id="exResult"><div>Version ' + exVer + ' finished</div><div class="big">' + s + ' / ' + N + '</div><div>' + Math.round(100 * s / N) + '% correct</div>' +
+    '<ul class="bytopic">' + topics.map(t => '<li><span>' + esc(t[0]) + '</span><b>' + t[1] + ' / ' + t[2] + '</b></li>').join("") + '</ul>' +
+    '<button class="btn primary" id="exRetake">Retake version ' + exVer + '</button>' +
+    '<button class="btn primary" id="exNext">Try version ' + nextV + '</button></div>';
+}
+function exWireSummary(){
+  const r = $("exReset"), t = $("exRetake"), nx = $("exNext");
+  const restart = () => { ex = exStates[exVer] = {picks: {}}; exSave(); exRender(); window.scrollTo({top: 0}); };
+  if (r) r.onclick = () => { if (confirm("Clear your answers for this version?")) restart(); };
+  if (t) t.onclick = restart;
+  if (nx) nx.onclick = () => { exSetVer(exVer % 3 + 1); window.scrollTo({top: 0}); };
+}
+function exWireQ(card){
+  card.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+    const i = +card.dataset.q; if (ex.picks[i] != null) return;
+    ex.picks[i] = +b.dataset.k; exSave();
+    const tmp = document.createElement("div"); tmp.innerHTML = exQ(i); const nc = tmp.firstChild;
+    card.replaceWith(nc);
+    $("exProgress").innerHTML = exBar();
+    $("exEnd").innerHTML = exSummary(); exWireSummary();
+  });
+}
+function exRender(){
+  const box = $("modeTest"), Q = EXAMS[exVer];
+  box.innerHTML =
+    '<div class="vers" role="tablist" aria-label="Practice exam version">' + [1,2,3].map(v => '<button class="ver' + (v === exVer ? ' active' : '') + '" data-v="' + v + '" role="tab" aria-selected="' + (v === exVer) + '">Version ' + v + '</button>').join("") + '</div>' +
+    '<div class="qbar exbar"><span>Practice exam ' + exVer + ' &middot; ' + Q.length + ' questions</span><span class="sub" id="exProgress">' + exBar() + '</span></div>' +
+    '<p class="mhelp">Tap an answer: it is scored right away and the explanation appears. Your total and a breakdown by source show at the bottom once all ' + Q.length + ' are answered. Each version has different questions and numbers. Answers are saved on this device.</p>' +
+    Q.map((q,i) => exQ(i)).join("") + '<div id="exEnd">' + exSummary() + '</div>';
+  box.querySelectorAll(".ver").forEach(b => b.onclick = () => { exSetVer(+b.dataset.v); window.scrollTo({top: 0}); });
+  box.querySelectorAll(".ptq").forEach(exWireQ);
+  exWireSummary();
+}
+exRender();
+function route(){
+  const h = location.hash, m = h.match(/^#exam-([123])$/);
+  if (h === "#multiple-choice") setMode("mc");
+  else if (h === "#match") setMode("match");
+  else if (m){ if (+m[1] !== exVer) exSetVer(+m[1]); setMode("test"); window.scrollTo({top: 0}); }
+  else if (h === "#flashcards") setMode("cards");
+}
+window.addEventListener("hashchange", route);
+route();
 </script>
 </body>
 </html>
