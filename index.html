@@ -101,6 +101,9 @@ mark{background:var(--hl);color:inherit;padding:0 3px;border-radius:4px;box-deco
 .opt.picked .letter{background:var(--accent);color:#fff}
 .status.wrongtag{background:#fde8e8;color:#9b1c1c}
 #ptResult{margin:0 0 12px}
+.vers{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#ebe7de;border-radius:12px;padding:4px;margin:0 0 10px}
+.ver{border:none;background:transparent;border-radius:9px;padding:9px 4px;font:700 .9rem Inter,system-ui,sans-serif;color:var(--muted);cursor:pointer}
+.ver.active{background:var(--accent);color:#fff}
 body.test-mode .chips{display:none}
 
 </style>
@@ -274,7 +277,7 @@ function setMode(m){
   if (m !== "match") stopTimer();
   if (m === "mc" && (!mc || mc.topic !== topic)) mcNewRound();
   if (m === "match"){ if (!mt || mt.topic !== topic) matchNewRound(); else if (!mt.finished) startTimer(); }
-  try { history.replaceState(null, "", m === "cards" ? location.pathname + location.search : "#" + ({mc: "multiple-choice", match: "match", test: "practice-test"})[m]); } catch(e){}
+  try { history.replaceState(null, "", m === "cards" ? location.pathname + location.search : "#" + ({mc: "multiple-choice", match: "match", test: ptHash()})[m]); } catch(e){}
 }
 document.querySelectorAll(".mode").forEach(b => b.onclick = () => setMode(b.dataset.mode));
 
@@ -419,15 +422,43 @@ const PT = [
  ["Venture Deals, Chapter 14: which is good advice?",["Ask for a nondisclosure agreement before pitching","Don't ask for a nondisclosure agreement up front","Lead with your patents","Pitch solo to look confident"],1,""],
  ["Guest speaker Sabrina Maisel says she bets on...",["The founder over the product","The product over the founder","The market size above all","The team's past exits"],1,""],
 ];
-let pt = {picks: {}, graded: false};
+const PT2 = [
+ ["Pre-money is $12 million and the investor puts in $4 million. What does the investor own?", ["25%", "33.3%", "20%", "75%"], 0, "$4 million ÷ $16 million post-money = 25%. Dividing by pre-money (33.3%) is the trap."],
+ ["An investor puts in $6 million for 30% of the company. What's the pre-money value?", ["$20 million", "$26 million", "$14 million", "$18 million"], 2, "Post-money = $6 million ÷ 30% = $20 million; minus $6 million = $14 million pre-money. $20 million is the post-money."],
+ ["Pre-money is $20 million, there are 8,000,000 fully diluted shares before the deal, and the new investment is $5 million. How many new shares are issued?", ["1,600,000", "2,500,000", "1,250,000", "2,000,000"], 3, "Price = $20 million ÷ 8 million shares = $2.50; new shares = $5 million ÷ $2.50 = 2,000,000. Using post-money ($25 million ÷ 8 million = $3.125) gives 1,600,000."],
+ ["Pre-money is $14 million, the new investment is $6 million, and the option pool is 15%. What do the founders own?", ["70%", "55%", "42.1%", "45%"], 1, "Investor = $6 million ÷ $20 million = 30%; founders = 1 − 30% − 15% = 55%. Forgetting the option pool gives 70%."],
+ ["Pre-money is $10 million, there are 4,000,000 fully diluted shares before the deal, and the new investment is $2 million. What's the price per share?", ["$3.00", "$0.50", "$2.50", "$0.40"], 2, "$10 million ÷ 4 million shares = $2.50. Using post-money ($12 million ÷ 4 million = $3.00) is the trap."],
+ ["Venture debt of $2.5 million costs the Secured Overnight Financing Rate (SOFR) + 6.25%, with SOFR at 4.25%. What's the interest-only monthly payment?", ["$21,875", "$262,500", "$13,021", "$8,854"], 0, "$2.5 million × 10.5% ÷ 12 = $21,875. $262,500 is the yearly amount; $13,021 forgets to add SOFR."],
+ ["A $2.5 million commitment has 6% warrant coverage, exercised at 5 times the strike price. What's the warrant gain?", ["$750,000", "$150,000", "$900,000", "$600,000"], 3, "6% × $2.5 million × (5 − 1) = $600,000. Forgetting the \"− 1\" gives $750,000."],
+ ["How do you find the effective rate on venture debt?", ["Use the stated interest rate, since fees and warrants don't change the cost", "List the monthly cash flows from the lender's view (fees, interest, principal, warrant gain), then take the internal rate of return across the dates", "List the monthly cash flows from the lender's view, but leave out the warrant gain because it only comes at the end", "Add the fees to the yearly interest rate and divide by the number of years"], 1, "Warrant gain is a big part of the lender's true return, so it must be included."],
+ ["A clause that lets the lender act if the company's business takes a major turn for the worse is called a...", ["Affirmative covenant", "Negative covenant", "Material adverse change clause", "Prepayment penalty"], 2, "Affirmative covenants are things the company must do; negative covenants are things it can't do."],
+ ["In venture debt negotiations, \"3-2-1\" describes which term?", ["A prepayment penalty", "The warrant strike price", "The interest-only period", "The draw period"], 0, "A prepayment penalty is either a 3-2-1 schedule or a fixed fee."],
+ ["Which of these is an angel platform (a website), not an angel group?", ["Band of Angels", "Keiretsu Forum", "Sand Hill Angels", "AngelList"], 3, "Band of Angels, Sand Hill Angels and Keiretsu Forum are groups; AngelList, Crunchbase, Gust and Wefunder are platforms."],
+ ["Y Combinator is which type of venture capital firm?", ["Early stage", "Incubator", "Late stage", "Corporate"], 1, "Sequoia and Andreessen Horowitz are the early-stage examples."],
+ ["Special purpose acquisition company (\"blank-check\" company): which is a con?", ["Deadline pressure, so the target company can ask for a premium", "Faster than a classic initial public offering", "Cheaper than a classic initial public offering", "An experienced management team"], 0, "The other three are pros. Another con: less oversight for retail investors."],
+ ["What do today's private equity leveraged buyout funds typically do?", ["Invest in years 1–4 and harvest after year 10", "Raise cash in an initial public offering and have 2 years to do a deal", "Load the target company with debt and sell in about 5–7 years", "Lend about 20–40% of a startup's equity raise"], 2, "The other answers describe venture capital fund life, a special purpose acquisition company, and venture debt."],
+ ["Venture capital fund life: what happens in years 1 to 4?", ["No new deals; follow-on investments come from reserves (\"dry powder\")", "The fund invests in new deals and charges full management fees", "Harvesting with no management fees", "New deals with no management fees"], 1, "Years 5–10: no new deals, follow-ons from reserves; years 10+: harvest, no management fees."],
+ ["What does a compensation table show?", ["Who gets cash salary vs. equity, the option pool size, and founders' preferred shares vs. investors' common shares", "Monthly cash burn and runway", "Each department's monthly revenue targets", "Who gets cash salary vs. equity, the option pool size, and founders' common shares vs. investors' preferred shares"], 3, "Founders hold common shares; investors hold preferred. It ties to dilution."],
+ ["When reviewing a financial plan, which item is often missing?", ["Customer churn", "The income statement", "The balance sheet", "The cash flow statement"], 0, "Also often missing: platform costs before revenue, next-year hires, sales support, options and bonuses."],
+ ["Which Venture Deals chapter covers fund structure, fees, how partners make money, and reserves?", ["Chapter 3: How to Raise Money", "Chapter 8: Convertible Debt", "Chapter 12: How Venture Capital Funds Work", "Chapter 11: Venture Debt"], 2, ""],
+ ["Which topic is part of Venture Deals, Chapter 3: How to Raise Money?", ["Discount and valuation cap", "Find a lead investor", "Economic, amortization, and control terms", "Fund structure and reserves"], 1, "The other topics are from Chapters 8, 11 and 12."],
+ ["Guest speaker Sabrina Maisel is an angel investor and deal leader with which group?", ["Band of Angels", "Keiretsu Forum", "Sand Hill Angels", "NuFund Venture Group (San Diego)"], 3, "She is also a Stemson Therapeutics director and a scientist with a doctorate (PhD)."],
+];
+let ptVer = 1;
+const ptStates = {1: {picks: {}, graded: false}, 2: {picks: {}, graded: false}};
+let pt = ptStates[1];
+function ptQs(){ return ptVer === 2 ? PT2 : PT; }
+function ptHash(){ return ptVer === 2 ? "practice-test-2" : "practice-test"; }
+function ptSetVer(v){ ptVer = v; pt = ptStates[v]; ptRender(); if (mode === "test"){ try { history.replaceState(null, "", "#" + ptHash()); } catch(e){} } }
 function ptRender(){
   const box = $("modeTest"), answered = Object.keys(pt.picks).length;
-  let score = 0; PT.forEach((q,i) => { if (pt.picks[i] === q[2]) score++; });
+  const QS = ptQs(); let score = 0; QS.forEach((q,i) => { if (pt.picks[i] === q[2]) score++; });
   box.innerHTML =
-    '<div class="qbar"><span>Practice test &middot; 20 questions</span><span class="sub" id="ptProgress">' + (pt.graded ? 'Score: ' + score + ' / 20' : answered + ' of 20 answered') + '</span></div>' +
+    '<div class="vers" role="tablist" aria-label="Practice test version">' + [1,2].map(v => '<button class="ver' + (v === ptVer ? ' active' : '') + '" data-v="' + v + '" role="tab" aria-selected="' + (v === ptVer) + '">Version ' + v + '</button>').join("") + '</div>' +
+    '<div class="qbar"><span>Practice test, version ' + ptVer + ' &middot; 20 questions</span><span class="sub" id="ptProgress">' + (pt.graded ? 'Score: ' + score + ' / 20' : answered + ' of 20 answered') + '</span></div>' +
     (pt.graded ? '<div class="qcard summary" id="ptResult"><div>Your score</div><div class="big">' + score + ' / 20</div><div>' + Math.round(score * 5) + '% correct</div>' +
       '<button class="btn primary" id="ptRetakeTop">Retake</button></div>' : '<p class="mhelp">Pick one answer for each question, then tap \u201cCheck my answers\u201d at the bottom.</p>') +
-    PT.map((q,i) => {
+    QS.map((q,i) => {
       const pick = pt.picks[i], right = pick === q[2];
       return '<div class="qcard ptq" data-q="' + i + '"><span class="tag">Question ' + (i + 1) + '</span>' +
         (pt.graded ? '<span class="status ' + (right ? 'got">&#x2713; Right' : 'wrongtag">&#x2717; ' + (pick == null ? 'Not answered' : 'Wrong')) + '</span>' : '') +
@@ -441,6 +472,7 @@ function ptRender(){
     }).join("") +
     (pt.graded ? '<button class="btn primary" id="ptRetake">Retake</button>'
       : '<button class="btn primary" id="ptCheck">Check my answers' + (answered < 20 ? ' (' + (20 - answered) + ' unanswered)' : '') + '</button>');
+  box.querySelectorAll(".ver").forEach(b => b.onclick = () => { ptSetVer(+b.dataset.v); window.scrollTo({top: 0}); });
   box.querySelectorAll(".ptq .opt").forEach(b => b.onclick = () => {
     const q = +b.closest(".ptq").dataset.q; pt.picks[q] = +b.dataset.k;
     b.parentNode.querySelectorAll(".opt").forEach(x => x.classList.toggle("picked", x === b));
@@ -448,11 +480,11 @@ function ptRender(){
     $("ptProgress").textContent = n + " of 20 answered";
     $("ptCheck").textContent = "Check my answers" + (n < 20 ? " (" + (20 - n) + " unanswered)" : "");
   });
-  if (pt.graded){ [$("ptRetake"), $("ptRetakeTop")].forEach(b => b.onclick = () => { pt = {picks: {}, graded: false}; ptRender(); window.scrollTo({top: 0}); }); }
+  if (pt.graded){ [$("ptRetake"), $("ptRetakeTop")].forEach(b => b.onclick = () => { pt = ptStates[ptVer] = {picks: {}, graded: false}; ptRender(); window.scrollTo({top: 0}); }); }
   else $("ptCheck").onclick = () => { pt.graded = true; ptRender(); window.scrollTo({top: 0}); };
 }
 ptRender();
-if (location.hash === "#multiple-choice") setMode("mc"); else if (location.hash === "#match") setMode("match"); else if (location.hash === "#practice-test") setMode("test");
+if (location.hash === "#multiple-choice") setMode("mc"); else if (location.hash === "#match") setMode("match"); else if (location.hash === "#practice-test") setMode("test"); else if (location.hash === "#practice-test-2"){ ptSetVer(2); setMode("test"); }
 </script>
 </body>
 </html>
