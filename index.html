@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BUS1 173C Segment Exam #2 Flashcards</title>
+<meta name="description" content="49 interactive study flashcards for BUS1 173C Segment Exam #2.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f4ef;--ink:#1f2933;--muted:#6b7280;--card:#fff;--accent:#2f6fde;--good:#1f9d55;--learn:#d97706;--hl:#fff3a3;--line:#e5e1d8}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:16px;line-height:1.4;-webkit-tap-highlight-color:transparent;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto;padding:14px 14px calc(24px + env(safe-area-inset-bottom))}
+h1{font-size:1.25rem;margin:4px 0 10px;text-align:center;letter-spacing:-.01em}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:8px 14px;font:600 .9rem Inter,system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip .n{opacity:.6;font-weight:400;margin-left:4px}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 0 10px;flex-wrap:wrap}
+.counter{font-weight:700;font-size:1rem;min-width:70px}
+.stats{color:var(--muted);font-size:.85rem}
+.tbtn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font:600 .85rem Inter,system-ui,sans-serif;cursor:pointer;color:var(--ink)}
+.tbtn.on{background:var(--learn);border-color:var(--learn);color:#fff}
+.scene{perspective:1400px;width:100%;height:min(60vh,440px);min-height:300px;margin:0 auto;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.card{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d;cursor:pointer}
+.card.flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);border-radius:18px;box-shadow:0 6px 24px rgba(0,0,0,.08),0 1px 3px rgba(0,0,0,.06);padding:44px 22px 36px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;border:1px solid var(--line)}
+.back{transform:rotateY(180deg);background:#fffdf6}
+.tag{position:absolute;top:12px;left:16px;font:600 .72rem Inter,system-ui,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.status{position:absolute;top:10px;right:14px;font:700 .72rem Inter,system-ui,sans-serif;padding:3px 8px;border-radius:999px}
+.status.got{background:#dcf5e6;color:var(--good)}.status.learning{background:#fdecd3;color:var(--learn)}
+.hint{position:absolute;bottom:10px;left:0;right:0;text-align:center;font-size:.75rem;color:var(--muted)}
+.text{font-family:"Patrick Hand","Comic Sans MS",cursive;font-size:1.6rem;line-height:1.3;text-align:center;word-wrap:break-word}
+.back .text{font-size:1.4rem;text-align:left}
+.back .text div{margin:0 0 6px}
+mark{background:var(--hl);color:inherit;padding:0 3px;border-radius:4px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.nav{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.btn{border:none;border-radius:12px;padding:14px 10px;font:700 1rem Inter,system-ui,sans-serif;cursor:pointer;background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08);border:1px solid var(--line)}
+.btn:active{transform:scale(.98)}
+.btn.good{background:var(--good);color:#fff;border-color:var(--good)}
+.btn.learn{background:var(--learn);color:#fff;border-color:var(--learn)}
+.btn:disabled{opacity:.4;cursor:default}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px}
+.empty{text-align:center;padding:60px 20px;color:var(--muted);font-size:1.05rem}
+.foot{text-align:center;color:var(--muted);font-size:.78rem;margin-top:16px}
+.foot button{background:none;border:none;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:.78rem}
+.keys{display:none}
+@media (hover:hover) and (pointer:fine){.keys{display:inline}}
+@media (min-width:600px){.text{font-size:1.9rem}.back .text{font-size:1.55rem}h1{font-size:1.5rem}}
+@media (prefers-reduced-motion:reduce){.card{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>BUS1 173C Segment Exam #2 Flashcards</h1>
+  <div class="chips" id="chips" role="tablist" aria-label="Topic filter"></div>
+  <div class="toolbar">
+    <span class="counter" id="counter" aria-live="polite">1 / 49</span>
+    <span class="stats" id="stats"></span>
+    <span>
+      <button class="tbtn" id="shuffle" title="Shuffle">&#x1F500; Shuffle</button>
+      <button class="tbtn" id="reviewMode" title="Review only Still learning cards">Review only Still learning</button>
+    </span>
+  </div>
+  <div id="stage">
+    <div class="scene" id="scene">
+      <div class="card" id="card" role="button" tabindex="0" aria-label="Flashcard, tap to flip">
+        <div class="face front"><span class="tag" id="tagF"></span><span class="status" id="stF"></span><div class="text" id="front"></div><div class="hint">Tap to flip<span class="keys"> &middot; Space</span></div></div>
+        <div class="face back"><span class="tag" id="tagB"></span><span class="status" id="stB"></span><div class="text" id="back"></div><div class="hint">Tap to flip back</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="empty" id="empty" hidden></div>
+  <div class="nav">
+    <button class="btn" id="prev" aria-label="Previous card">&larr; Prev</button>
+    <button class="btn" id="next" aria-label="Next card">Next &rarr;</button>
+  </div>
+  <div class="nav">
+    <button class="btn learn" id="learning">Still learning</button>
+    <button class="btn good" id="got">Got it &#x2713;</button>
+  </div>
+  <div class="foot"><span class="keys">Keys: &larr; &rarr; navigate &middot; Space flip &middot; </span>Swipe left/right on phones &middot; Progress is saved on this device. <button id="reset">Reset progress</button></div>
+</div>
+<script>
+const CARDS = [{"id": 1, "topic": "Financial planning", "front": "What does a financial plan link together?", "back": "Assumptions -> revenue and headcount costs -> income statement, balance sheet, cash flow. Change one driver and the whole model should update."}, {"id": 2, "topic": "Financial planning", "front": "One-year plan: what level of detail, and what is in it?", "back": "Monthly detail: new contracts, annual and monthly recurring revenue, deferred revenue, department headcount, venture debt schedule, capitalization table, options pool, sensitivity."}, {"id": 3, "topic": "Financial planning", "front": "Five-year plan: what does it show?", "back": "Annual view: growth path, when you need the next raise, runway, and whether the story still holds. Read cash and hiring lead times, not just revenue."}, {"id": 4, "topic": "Financial planning", "front": "Reviewing a plan: what is often missing?", "back": "Churn, platform costs before revenue, next-year hires, sales support, options and bonuses. Software metrics can mislead: still check cash burn and runway."}, {"id": 5, "topic": "Financial planning", "front": "Excess capacity", "back": "Unused people, seats, or production you already pay for. Revenue can grow without a matching cost jump, until capacity runs out, then costs step up. Red flag: infinite free capacity."}, {"id": 6, "topic": "Financial planning", "front": "Compensation table: what does it show?", "back": "Who gets cash salary vs. equity; option pool size; founders' common shares vs. investors' preferred; granted vs. available options. Ties to dilution."}, {"id": 7, "topic": "Financial planning", "front": "Student-built one-year and five-year plan cases: be ready to...", "back": "Build or interpret the plan: change the variables and see what happens to cash and rates."}, {"id": 8, "topic": "Pre/post-money", "front": "Pre-money value", "back": "What the company is worth BEFORE the new cash comes in."}, {"id": 9, "topic": "Pre/post-money", "front": "Post-money value (formula)", "back": "Post-money = pre-money + new investment"}, {"id": 10, "topic": "Pre/post-money", "front": "Investor ownership % (formula)", "back": "Investor % = new investment / post-money (divide by POST-money, not pre-money)"}, {"id": 11, "topic": "Pre/post-money", "front": "Price per share (formula)", "back": "Price per share = pre-money / pre-money fully diluted shares"}, {"id": 12, "topic": "Pre/post-money", "front": "Founders' post-money ownership % (formula)", "back": "Founders % = 1 - investor % - option pool % (template option pool = 15%)"}, {"id": 13, "topic": "Pre/post-money", "front": "MATH: Pre-money $8 million, new investment $2 million, 4,000,000 fully diluted shares. Post-money? Investor %? Price per share?", "back": "Post = $8 million + $2 million = $10 million; Investor = $2 million / $10 million = 20%; Price = $8,000,000 / 4,000,000 = $2.00"}, {"id": 14, "topic": "Pre/post-money", "front": "MATH: Pre-money $10 million, new investment $15 million, 3,000,000 fully diluted shares. Post-money? Investor %? Price per share?", "back": "Post = $10 million + $15 million = $25 million; Investor = $15 million / $25 million = 60%; Price = $10,000,000 / 3,000,000 = $3.33"}, {"id": 15, "topic": "Pre/post-money", "front": "MATH: In the $10 million pre-money / $15 million deal, the investor owns 60% and the option pool is 15%. What % do founders own?", "back": "Founders = 1 - 60% - 15% = 25%"}, {"id": 16, "topic": "Pre/post-money", "front": "MATH: Pre-money $6 million, new investment $4 million, 15% option pool. Post-money? Investor %? Founders %?", "back": "Post = $6 million + $4 million = $10 million; Investor = $4 million / $10 million = 40%; Founders = 1 - 40% - 15% = 45%"}, {"id": 17, "topic": "Pre/post-money", "front": "MATH: An investor puts in $3 million for 25% of the company. Post-money? Pre-money?", "back": "Post = $3 million / 25% = $12 million; Pre = $12 million - $3 million = $9 million"}, {"id": 18, "topic": "Pre/post-money", "front": "MATH: Pre-money $12 million, 6,000,000 fully diluted shares, new investment $3 million. Price per share? New shares issued?", "back": "Price = $12,000,000 / 6,000,000 = $2.00; New shares = $3,000,000 / $2.00 = 1,500,000; Check: 1.5 million / 7.5 million shares = 20% = $3 million / $15 million post"}, {"id": 19, "topic": "Funding sources", "front": "Friends and family: size, pros, cons", "back": "Small sums; early or first money. Pros: fast, flexible. Cons: relationship risk; often no expert help."}, {"id": 20, "topic": "Funding sources", "front": "Angel investing: typical check size", "back": "$100 thousand to $4 million+ (Session 15 slide 5)"}, {"id": 21, "topic": "Funding sources", "front": "Accredited investor (needed by most angels)", "back": "Net worth of at least $1 million, OR at least $200,000 annual individual income, OR at least $300,000 annual joint income."}, {"id": 22, "topic": "Funding sources", "front": "Angel groups and angel platforms: examples", "back": "Groups: Band of Angels, Sand Hill Angels, Keiretsu Forum. Platforms (websites): AngelList, Crunchbase, Gust, Wefunder."}, {"id": 23, "topic": "Funding sources", "front": "Crowdfunding: typical size and the 3 types", "back": "$10 thousand to low millions; Types: product (rewards / pre-sales), equity, and token / cryptocurrency (coin offerings)."}, {"id": 24, "topic": "Funding sources", "front": "Product crowdfunding: how it works and pros", "back": "Kickstarter / Indiegogo; rewards or pre-sales; usually a; 30-day raise with a minimum target. Pros: lots of cash fast; non-dilutive (no equity given)."}, {"id": 25, "topic": "Funding sources", "front": "Product crowdfunding: cons", "back": "Miss the target -> return the funds; funds may be taxable revenue with no offsetting costs; product never finished; product not protected before launch."}, {"id": 26, "topic": "Funding sources", "front": "Equity crowdfunding: pros and cons", "back": "Pros: raise cash quickly, set the terms, rarely give board seats. Cons: dilutive; many small investors who add little beyond cash; you can't pick the investors."}, {"id": 27, "topic": "Funding sources", "front": "Token / cryptocurrency crowdfunding (initial coin offerings)", "back": "Rare and prone to fraud; long-term viability still being determined; regulators slow to act."}, {"id": 28, "topic": "Funding sources", "front": "Venture capital: size and what you give up", "back": "$100 thousand to $100 million+; Equity for growth; investors get board seats and control terms."}, {"id": 29, "topic": "Funding sources", "front": "Types of venture capital firms", "back": "Incubators (Y Combinator); early stage (Sequoia, Andreessen Horowitz); late stage; corporate; geographic- or sector-focused."}, {"id": 30, "topic": "Funding sources", "front": "Venture capital fund life", "back": "Years 1-4: invest, full management fees. Years 5-10: no new deals, follow-ons from reserves (\"dry powder\"). Years 10+: harvest, no management fees."}, {"id": 31, "topic": "Funding sources", "front": "Debt / venture debt: size and when it comes", "back": "$100 thousand to $50 million+; always follows venture equity: about 20%-40% of the equity raise, or based on recurring revenue. Not bank debt: normally more expensive (fees + interest + warrants)."}, {"id": 32, "topic": "Funding sources", "front": "Special purpose acquisition company (\"blank-check\" company)", "back": "No operations; raises cash in an initial public offering to buy or merge with a company. Cash sits in trust; 2 years to do a deal or return the funds."}, {"id": 33, "topic": "Funding sources", "front": "Special purpose acquisition company: pros and cons", "back": "Pros: faster / cheaper than a classic initial public offering; experienced management team. Cons: deadline pressure (target asks a premium); less oversight for retail investors."}, {"id": 34, "topic": "Funding sources", "front": "Private equity: what it does", "back": "Today's leveraged buyout funds: load the target with debt. Growth capital, roll-ups, undervalued firms, take-privates. Sell in about 5-7 years."}, {"id": 35, "topic": "Funding sources", "front": "Private equity: local firm examples", "back": "Serent Capital, Hellman & Friedman, Gryphon Investors, San Francisco Equity Partners, Mainsail Partners."}, {"id": 36, "topic": "Venture debt terms", "front": "How do you find the effective rate on venture debt?", "back": "List monthly cash flows from the LENDER's view (fees, interest, principal, warrant gain), then take the internal rate of return across the dates."}, {"id": 37, "topic": "Venture debt terms", "front": "Interest-only months vs. amortizing months", "back": "Interest-only payment = commitment x annual rate / 12; Amortizing = a fixed payment that pays off the principal over the amortization window."}, {"id": 38, "topic": "Venture debt terms", "front": "Warrant gain (economic warrants): formula and timing", "back": "coverage % x commitment x (return multiple - 1); Added at the end (typically month 60)."}, {"id": 39, "topic": "Venture debt terms", "front": "What raises the effective rate?", "back": "Higher fees -> higher. Bigger warrant gain -> much higher. Longer interest-only -> cash later, rate often up. Higher coupon -> higher, but warrants usually dominate."}, {"id": 40, "topic": "Venture debt terms", "front": "Homework check: what do warrants do to the effective rate?", "back": "With warrants: 15.85% / 16.16% / 14.54%; No warrants: 10.06% / 9.84% / 11.22%; Warrant gain is a big part of the lender's true return."}, {"id": 41, "topic": "Venture debt terms", "front": "Venture debt: common negotiated terms", "back": "Interest rate; fees; warrants (common vs. preferred; strike = last vs. next round); interest-only period; draw period; amortization; prepayment penalty (3-2-1 or fixed fee)."}, {"id": 42, "topic": "Venture debt terms", "front": "Venture debt: control terms", "back": "Affirmative covenants (must do: reporting, taxes, insurance); Negative covenants (can't do: mergers, more debt, distributions); Material adverse change clause"}, {"id": 43, "topic": "Venture Deals book", "front": "Venture Deals, Chapter 3: How to Raise Money", "back": "How much to raise; materials; find a lead; how venture firms decide; use competition; close."}, {"id": 44, "topic": "Venture Deals book", "front": "Venture Deals, Chapter 8: Convertible Debt", "back": "Discount, valuation cap, interest, conversion, warrants; early vs. late stage; dangers; alternatives (e.g. simple agreement for future equity)."}, {"id": 45, "topic": "Venture Deals book", "front": "Venture Deals, Chapter 10: Crowdfunding", "back": "Product vs. equity vs. token crowdfunding (matches Session 15)."}, {"id": 46, "topic": "Venture Deals book", "front": "Venture Deals, Chapter 11: Venture Debt", "back": "Role of debt vs. equity; economic, amortization, and control terms; negotiation; restructuring."}, {"id": 47, "topic": "Venture Deals book", "front": "Venture Deals, Chapter 12: How Venture Capital Funds Work", "back": "Fund structure, fees, how partners make money, reserves, time pressure, corporate venture."}, {"id": 48, "topic": "Venture Deals book", "front": "Venture Deals, Chapter 14: Raising Money the Right Way", "back": "Don't ask for a nondisclosure agreement up front; don't go solo; don't oversell patents; communicate; be human."}, {"id": 49, "topic": "Guest speaker", "front": "Guest speaker: Sabrina Maisel - who is she?", "back": "NuFund Venture Group angel investor and deal leader (San Diego); Stemson Therapeutics director; PhD (doctorate) scientist. Bets on the product rather than the founder."}];
+const TOPICS = ["All","Financial planning","Pre/post-money","Funding sources","Venture debt terms","Venture Deals book","Guest speaker"];
+const KEY = "bus173c-exam2-progress-v1";
+let progress = {};
+try { progress = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { progress = {}; }
+let topic = "All", reviewOnly = false, order = CARDS.map((c,i)=>i), list = [], pos = 0;
+const $ = id => document.getElementById(id);
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(progress)); } catch(e){} }
+function esc(s){ return s.replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch])); }
+const NUM = /(\$?\d[\d,]*(?:\.\d+)?(?:\s?(?:million|thousand))?(?:%|\+)?(?:\s?-\s?\d[\d,]*(?:\.\d+)?%?)?)/g;
+function highlight(s, isFormula){
+  const e = esc(s);
+  if (isFormula || /=/.test(s)) return "<mark>" + e + "</mark>";
+  return e.replace(NUM, "<mark>$1</mark>");
+}
+function render(){
+  const empty = $("empty"), scene = $("scene");
+  if (!list.length){
+    scene.hidden = true; empty.hidden = false;
+    empty.textContent = reviewOnly ? "No \u201cStill learning\u201d cards here. Nice work! Turn off review mode or mark some cards." : "No cards.";
+    $("counter").textContent = "0 / 0";
+    ["prev","next","got","learning"].forEach(id => $(id).disabled = true);
+    updateStats(); return;
+  }
+  scene.hidden = false; empty.hidden = true;
+  ["prev","next","got","learning"].forEach(id => $(id).disabled = false);
+  if (pos >= list.length) pos = list.length - 1;
+  if (pos < 0) pos = 0;
+  const c = CARDS[list[pos]];
+  $("card").classList.remove("flipped");
+  const isFormula = /\(formula\)/i.test(c.front);
+  $("front").innerHTML = highlight(c.front, false);
+  $("back").innerHTML = c.back.split("; ").map(l => "<div>" + highlight(l, isFormula) + "</div>").join("");
+  $("tagF").textContent = $("tagB").textContent = c.topic;
+  const st = progress[c.id];
+  [$("stF"), $("stB")].forEach(el => { el.className = "status" + (st ? " " + st : ""); el.textContent = st === "got" ? "Got it" : st === "learning" ? "Still learning" : ""; });
+  $("counter").textContent = (pos + 1) + " / " + list.length;
+  updateStats();
+}
+function updateStats(){
+  let g=0,l=0; CARDS.forEach(c => { if (progress[c.id]==="got") g++; else if (progress[c.id]==="learning") l++; });
+  $("stats").textContent = "\u2713 " + g + " \u00b7 learning " + l;
+}
+function rebuild(keepId){
+  list = order.filter(i => (topic === "All" || CARDS[i].topic === topic) && (!reviewOnly || progress[CARDS[i].id] === "learning"));
+  pos = 0;
+  if (keepId != null){ const k = list.indexOf(keepId); if (k >= 0) pos = k; }
+  renderChips(); render();
+}
+function renderChips(){
+  const box = $("chips"); box.innerHTML = "";
+  TOPICS.forEach(t => {
+    const n = t === "All" ? CARDS.length : CARDS.filter(c => c.topic === t).length;
+    const b = document.createElement("button");
+    b.className = "chip" + (t === topic ? " active" : ""); b.setAttribute("role","tab"); b.dataset.topic = t;
+    b.innerHTML = esc(t) + '<span class="n">' + n + "</span>";
+    b.onclick = () => { topic = t; rebuild(); };
+    box.appendChild(b);
+  });
+}
+function flip(){ if (list.length) $("card").classList.toggle("flipped"); }
+function go(d){ if (!list.length) return; pos = (pos + d + list.length) % list.length; render(); }
+function mark(st){
+  if (!list.length) return;
+  const id = CARDS[list[pos]].id; progress[id] = st; save();
+  if (reviewOnly && st === "got"){ list.splice(pos,1); if (pos >= list.length) pos = 0; render(); }
+  else go(1);
+}
+$("card").addEventListener("click", flip);
+$("card").addEventListener("keydown", e => { if (e.key === "Enter"){ e.preventDefault(); flip(); } });
+$("prev").onclick = () => go(-1);
+$("next").onclick = () => go(1);
+$("got").onclick = () => mark("got");
+$("learning").onclick = () => mark("learning");
+$("shuffle").onclick = () => {
+  for (let i = order.length - 1; i > 0; i--){ const j = Math.floor(Math.random()*(i+1)); [order[i],order[j]] = [order[j],order[i]]; }
+  rebuild();
+};
+$("reviewMode").onclick = () => { reviewOnly = !reviewOnly; $("reviewMode").classList.toggle("on", reviewOnly); rebuild(); };
+$("reset").onclick = () => { if (confirm("Reset all Got it / Still learning progress on this device?")){ progress = {}; save(); rebuild(); } };
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT" || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === "ArrowRight"){ e.preventDefault(); go(1); }
+  else if (e.key === "ArrowLeft"){ e.preventDefault(); go(-1); }
+  else if (e.key === " " || e.code === "Space"){ e.preventDefault(); flip(); }
+});
+let sx=null, sy=null, st0=0;
+const scene = $("scene");
+scene.addEventListener("touchstart", e => { const t = e.changedTouches[0]; sx = t.clientX; sy = t.clientY; st0 = Date.now(); }, {passive:true});
+scene.addEventListener("touchend", e => {
+  if (sx === null) return;
+  const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+  sx = null;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5 && Date.now() - st0 < 800){ e.preventDefault(); go(dx < 0 ? 1 : -1); }
+}, {passive:false});
+rebuild();
+</script>
+</body>
+</html>
