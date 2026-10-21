@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BUS1 176 Knowledge Checkpoint 4 Practice Quiz</title>
+<meta name="description" content="20-question practice quiz: Koller Valuation Chapters 13, 14, 15 and the HBR article Do You Know Your Cost of Capital?">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%93%9A%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f4ef;--ink:#1f2933;--muted:#6b7280;--card:#fff;--accent:#2f6fde;--good:#1f9d55;--learn:#d97706;--hl:#fff3a3;--line:#e5e1d8}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:16px;line-height:1.4;-webkit-tap-highlight-color:transparent;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto;padding:14px 14px calc(24px + env(safe-area-inset-bottom))}
+h1{font-size:1.25rem;margin:4px 0 10px;text-align:center;letter-spacing:-.01em}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:8px 14px;font:600 .9rem Inter,system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip .n{opacity:.6;font-weight:400;margin-left:4px}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 0 10px;flex-wrap:wrap}
+.counter{font-weight:700;font-size:1rem;min-width:70px}
+.stats{color:var(--muted);font-size:.85rem}
+.tbtn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font:600 .85rem Inter,system-ui,sans-serif;cursor:pointer;color:var(--ink)}
+.tbtn.on{background:var(--learn);border-color:var(--learn);color:#fff}
+.scene{perspective:1400px;width:100%;height:min(50vh,440px);min-height:280px;margin:0 auto;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.card{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d;cursor:pointer}
+.card.flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);border-radius:18px;box-shadow:0 6px 24px rgba(0,0,0,.08),0 1px 3px rgba(0,0,0,.06);padding:44px 22px 36px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;border:1px solid var(--line)}
+.back{transform:rotateY(180deg);background:#fffdf6}
+.tag{position:absolute;top:12px;left:16px;font:600 .72rem Inter,system-ui,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.status{position:absolute;top:10px;right:14px;font:700 .72rem Inter,system-ui,sans-serif;padding:3px 8px;border-radius:999px}
+.status.got{background:#dcf5e6;color:var(--good)}.status.learning{background:#fdecd3;color:var(--learn)}
+.hint{position:absolute;bottom:10px;left:0;right:0;text-align:center;font-size:.75rem;color:var(--muted)}
+.text{font-family:"Patrick Hand","Comic Sans MS",cursive;font-size:1.6rem;line-height:1.3;text-align:center;word-wrap:break-word}
+.back .text{font-size:1.4rem;text-align:left}
+.back .text div{margin:0 0 6px}
+mark{background:var(--hl);color:inherit;padding:0 3px;border-radius:4px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.nav{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.btn{border:none;border-radius:12px;padding:14px 10px;font:700 1rem Inter,system-ui,sans-serif;cursor:pointer;background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08);border:1px solid var(--line)}
+.btn:active{transform:scale(.98)}
+.btn.good{background:var(--good);color:#fff;border-color:var(--good)}
+.btn.learn{background:var(--learn);color:#fff;border-color:var(--learn)}
+.btn:disabled{opacity:.4;cursor:default}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px}
+.empty{text-align:center;padding:60px 20px;color:var(--muted);font-size:1.05rem}
+.foot{text-align:center;color:var(--muted);font-size:.78rem;margin-top:16px}
+.foot button{background:none;border:none;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:.78rem}
+.keys{display:none}
+@media (hover:hover) and (pointer:fine){.keys{display:inline}}
+@media (min-width:600px){.text{font-size:1.9rem}.back .text{font-size:1.55rem}h1{font-size:1.5rem}}
+@media (prefers-reduced-motion:reduce){.card{transition:none}}
+.modes{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:#ebe7de;border-radius:12px;padding:4px;margin:0 0 10px}
+.mode{border:none;background:transparent;border-radius:9px;padding:10px 2px;font:700 .85rem Inter,system-ui,sans-serif;color:var(--muted);cursor:pointer}
+.mode.active{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.qbar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:4px 0 10px;font-weight:700;flex-wrap:wrap}
+.qbar .sub{color:var(--muted);font-weight:600;font-size:.9rem}
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 6px 24px rgba(0,0,0,.08);padding:34px 18px 18px;position:relative}
+.qtext{font-family:"Patrick Hand","Comic Sans MS",cursive;font-size:1.45rem;line-height:1.3;text-align:center;overflow-wrap:anywhere}
+.opts{display:grid;gap:10px;margin-top:14px}
+.opt{display:flex;gap:10px;align-items:flex-start;text-align:left;width:100%;border:2px solid var(--line);background:#fff;border-radius:14px;padding:12px 14px;font:400 1rem/1.4 Inter,system-ui,sans-serif;color:var(--ink);cursor:pointer;overflow-wrap:anywhere}
+.opt .letter{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#ebe7de;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem}
+.opt .otext div{margin:0 0 2px}
+.opt:disabled{cursor:default;color:var(--ink)}
+.opt.right{border-color:var(--good);background:#e3f6ea}
+.opt.right .letter{background:var(--good);color:#fff}
+.opt.wrong{border-color:#d64545;background:#fde8e8}
+.opt.wrong .letter{background:#d64545;color:#fff}
+.opt.dim{opacity:.55}
+.fb{margin:12px 0 0;padding:12px 14px;border-radius:12px;font-weight:600}
+.fb.ok{background:#e3f6ea;color:#14663a}.fb.no{background:#fde8e8;color:#9b1c1c}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);width:100%;margin-top:12px}
+.btn.learn.primary{background:var(--learn);border-color:var(--learn)}
+.summary{text-align:center}
+.summary .big{font-size:2.4rem;font-weight:700;margin:6px 0}
+.missed{text-align:left;margin:14px 0 0;padding:0;list-style:none}
+.missed li{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 8px;font-size:.92rem}
+.missed b{display:block;margin-bottom:4px}
+.mgrid{display:grid;grid-template-columns:2fr 3fr;gap:8px;align-items:start}
+.mcol{display:grid;gap:8px}
+.mcol h2{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 2px}
+.mi{border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px;font:400 .88rem/1.35 Inter,system-ui,sans-serif;color:var(--ink);text-align:left;cursor:pointer;overflow-wrap:anywhere;width:100%;transition:background .15s,border-color .15s}
+.mi.term{font-weight:600}
+.mi div{margin:0 0 2px}
+.mi.sel{border-color:var(--accent);background:#e8f0fd;box-shadow:0 0 0 2px rgba(47,111,222,.25)}
+.mi.done{border-color:var(--good);background:#e3f6ea;color:#14663a;cursor:default}
+.mi.bad{border-color:#d64545;background:#fde8e8;animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.mhelp{color:var(--muted);font-size:.85rem;margin:0 0 10px}
+.mdone{background:#e3f6ea;color:#14663a;border-radius:14px;padding:14px;text-align:center;font-weight:700;margin:0 0 12px}
+@media (min-width:600px){.qtext{font-size:1.7rem}.mi{font-size:.95rem;padding:12px}.mgrid{gap:12px}}
+@media (prefers-reduced-motion:reduce){.mi.bad{animation:none}}
+@media (max-width:480px){.modes{grid-template-columns:repeat(2,1fr)}}
+.ptq{margin:0 0 12px;padding:34px 14px 14px}
+.ptq .opts{margin-top:10px}
+.pq{font-weight:700;font-size:1.02rem;line-height:1.4;overflow-wrap:anywhere}
+.opt.picked{border-color:var(--accent);background:#e8f0fd}
+.opt.picked .letter{background:var(--accent);color:#fff}
+.status.wrongtag{background:#fde8e8;color:#9b1c1c}
+#ptResult{margin:0 0 12px}
+.vers{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#ebe7de;border-radius:12px;padding:4px;margin:0 0 10px}
+.ver{border:none;background:transparent;border-radius:9px;padding:9px 4px;font:700 .9rem Inter,system-ui,sans-serif;color:var(--muted);cursor:pointer}
+.ver.active{background:var(--accent);color:#fff}
+body.test-mode .chips{display:none}
+
+
+.ptq .tag{max-width:60%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sublead{text-align:center;color:var(--muted);font-size:.88rem;margin:-4px 0 12px}
+</style>
+</head>
+<body class="test-mode">
+<div class="wrap">
+<h1>BUS1 176 &middot; Knowledge Checkpoint 4 practice quiz</h1>
+<p class="sublead">Koller Chapters 13 (Forecasting), 14 (Continuing Value), 15 (Cost of Capital) and the Harvard Business Review article &ldquo;Do You Know Your Cost of Capital?&rdquo;</p>
+<section id="modeTest"></section>
+</div>
+<script>
+const QS = [["Ch 13 Forecasting", "When building a forecast, which line do you forecast FIRST, because most other items are tied to it?", ["Capital expenditures (spending on equipment and buildings)", "Revenue (sales)", "Net income", "The cost of capital"], 1, "Start with revenue, then forecast operating drivers such as margins and turnover ratios as a share of revenue."], ["Ch 13 Forecasting", "Revenue is $1,000 and grows 8%. Net operating profit less adjusted taxes (NOPAT) is 10% of revenue. Invested capital turnover (revenue / invested capital) is 2.0, and invested capital today is $500. What is next year's free cash flow?", ["$108", "$60", "-$432", "$68"], 3, "Revenue $1,080, NOPAT $108, invested capital $1,080/2 = $540, so new investment = $40 and free cash flow = 108 - 40 = $68."], ["Ch 13 Forecasting", "Most operating working capital items (like accounts receivable and inventory) are usually forecast as:", ["A percentage of revenue (or days of sales), using a driver ratio", "A fixed dollar amount copied from last year", "A percentage of net income", "A plug that makes the balance sheet balance"], 0, "Tie operating items to their economic driver, usually revenue."], ["Ch 13 Forecasting", "A company's new projects earn a return on invested capital (ROIC) of 7%, and its weighted average cost of capital (WACC) is 9%. Faster growth in these projects will:", ["Create value, because more revenue always adds value", "Have no effect on value", "Destroy value, because ROIC is below WACC", "Create value as long as margins stay the same"], 2, "Growth adds value only when ROIC on new capital is above WACC."], ["Ch 13 Forecasting", "After forecasting the income statement and operating balance sheet items, how do you make the balance sheet balance?", ["Use a plug of excess cash or new debt (a financing item)", "Change revenue until it balances", "Plug with property, plant and equipment", "Plug with accounts receivable"], 0, "Koller balances with cash or debt (financing items), never with operating items."], ["Ch 14 Continuing Value", "Year-10 net operating profit less adjusted taxes (NOPAT) is $200; year 11 is $208. Growth (g) = 4%, return on new invested capital (RONIC) = 16%, weighted average cost of capital (WACC) = 9%. Using the key value driver formula, the continuing value at the end of year 10 is:", ["$3,000", "$4,160", "$3,120", "$2,311"], 2, "CV = NOPAT next year x (1 - g/RONIC) / (WACC - g) = 208 x (1 - 0.25) / 0.05 = $3,120."], ["Ch 14 Continuing Value", "NOPAT (net operating profit less adjusted taxes) next year is $90, growth is 3%, and return on new invested capital (RONIC) equals the weighted average cost of capital (WACC) of 10%. What is the continuing value?", ["$1,286 (NOPAT / (WACC - g), the aggressive growth formula)", "$900", "$630", "$3,000"], 1, "When RONIC = WACC, growth adds no value, so CV = 90 x (1 - 0.3) / 0.07 = 90 / 0.10 = $900 (the convergence formula)."], ["Ch 14 Continuing Value", "The continuing value at the end of a 5-year forecast is $1,000 and the weighted average cost of capital (WACC) is 10%. Its present value today is:", ["$564.47", "$683.01", "$1,000", "$620.92"], 3, "The continuing value sits at the end of year 5, so discount 5 years: 1,000 / 1.10^5 = $620.92."], ["Ch 14 Continuing Value", "Setting return on new invested capital (RONIC) equal to the weighted average cost of capital (WACC) in the continuing value means:", ["The company's competitive advantage ends right away and all returns fall to WACC", "The company stops growing", "The continuing value becomes zero", "New investment earns just its cost, but existing capital keeps earning its old, higher return"], 3, "RONIC applies only to NEW capital, so the average return fades slowly toward WACC."], ["Ch 14 Continuing Value", "Making the explicit forecast period longer (for example 10 years instead of 5), with the same assumptions, will:", ["Not change total value; it only shifts value between the forecast period and the continuing value", "Raise total value, because more years are counted", "Lower total value, because of more discounting", "Make the continuing value bigger"], 0, "Forecast length changes the split, not the total (Koller's $893 million example)."], ["Ch 15 Cost of Capital", "Market value of equity is $60 million and debt is $40 million. Cost of equity is 10%, the yield on new debt is 6%, and the marginal tax rate is 25%. What is the weighted average cost of capital (WACC)?", ["8.40%", "6.70%", "7.80%", "7.25%"], 2, "WACC = 0.6 x 10% + 0.4 x 6% x (1 - 0.25) = 6.0% + 1.8% = 7.80%."], ["Ch 15 Cost of Capital", "Risk-free rate is 4%, beta is 1.3, and the expected stock market return is 9.5%. Using the capital asset pricing model (CAPM), the cost of equity is:", ["16.35%", "11.15%", "12.35%", "9.50%"], 1, "Market risk premium = 9.5% - 4% = 5.5%; cost of equity = 4% + 1.3 x 5.5% = 11.15%."], ["Ch 15 Cost of Capital", "A similar company has a levered beta (beta including the effect of its debt) of 1.5 and a debt-to-equity ratio of 0.5. Using Koller's simple formula (levered beta = unlevered beta x (1 + debt/equity)), what is the beta for your company with a target debt-to-equity ratio of 0.25?", ["1.875", "1.00", "1.25", "1.20"], 2, "Unlevered beta = 1.5 / 1.5 = 1.0; relevered = 1.0 x (1 + 0.25) = 1.25."], ["Ch 15 Cost of Capital", "Which weights should you use for debt and equity in the weighted average cost of capital (WACC)?", ["Book (accounting) values from the balance sheet", "Target capital structure at market values", "Today's book debt and market equity", "Whatever mix gives the lowest WACC"], 1, "Koller uses a target mix of debt and equity measured at market values."], ["Ch 15 Cost of Capital", "Koller's standard choice for the risk-free rate and market risk premium is:", ["3-month Treasury bill rate, and a market risk premium of about 5% to 6%", "10-year government bond yield, and a market risk premium of about 10% to 12%", "30-year bond yield, and a premium that is updated every month", "10-year government bond yield, and a market risk premium of about 5% to 6%"], 3, "Use a long-term government bond to match long-lived cash flows, and a steady 5% to 6% premium."], ["HBR Cost of Capital", "In the article, a $20 million project returns $3.25 million a year for 10 years. Using a 9% cost of capital (1% below the true 10%), the net present value (value today of future cash minus the cost) is about:", ["+$0.9 million", "$0", "-$0.9 million", "+$12.5 million"], 0, "3.25 x annuity factor at 9% (6.418) = $20.86 million, so the net present value is about +$0.86 million; at 10% it is about $0."], ["HBR Cost of Capital", "A company's new borrowing would cost 7%; its old bonds pay 5%. The marginal tax rate is 25% and the effective tax rate is 15%. The after-tax cost of debt should be:", ["3.75%", "5.25%", "5.95%", "7.00%"], 1, "Use the rate on NEW borrowing times (1 - marginal tax rate): 7% x 0.75 = 5.25%."], ["HBR Cost of Capital", "If a company uses a cost of capital that is LOWER than its true cost, the main danger is that it will:", ["Fund projects that actually destroy value", "Pass up good projects", "Pay higher taxes", "Get a higher credit rating"], 0, "Too low a rate makes bad projects look good; too high a rate makes you pass up good ones."], ["HBR Cost of Capital", "For a project unlike the company's main business (like Microsoft building a computer-chip lab), the article says the right hurdle rate is:", ["The company's own cost of capital", "The company's rate plus 1 percentage point", "The risk-free rate", "The cost of capital of pure-play companies that do only that kind of business"], 3, "Only about half of the companies that adjust for project risk do it this way."], ["HBR Cost of Capital", "What did the Association for Financial Professionals survey in the article find?", ["Almost all companies use market-value weights", "Most companies use the marginal tax rate", "About 90% use the capital asset pricing model (CAPM), yet no question got the same answer from a majority", "Companies agree closely on the market risk premium"], 2, "Same tools, different inputs. Also, using book equity made Delta's and IBM's cost of capital 2% to 3% too low."]];
+const $ = id => document.getElementById(id);
+function esc(s){ return s.replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch])); }
+let pt = {picks: {}, graded: false};
+const N = QS.length;
+function ptRender(){
+  const box = $("modeTest"), answered = Object.keys(pt.picks).length;
+  let score = 0; QS.forEach((q,i) => { if (pt.picks[i] === q[3]) score++; });
+  box.innerHTML =
+    '<div class="qbar"><span>Practice quiz &middot; ' + N + ' questions</span><span class="sub" id="ptProgress">' + (pt.graded ? 'Score: ' + score + ' / ' + N : answered + ' of ' + N + ' answered') + '</span></div>' +
+    (pt.graded ? '<div class="qcard summary" id="ptResult"><div>Your score</div><div class="big" id="ptScore">' + score + ' / ' + N + '</div><div>' + Math.round(score * 100 / N) + '% correct</div>' +
+      '<button class="btn primary" id="ptRetakeTop">Retake</button></div>' : '<p class="mhelp">Pick one answer for each question, then tap \u201cCheck my answers\u201d at the bottom.</p>') +
+    QS.map((q,i) => {
+      const pick = pt.picks[i], right = pick === q[3];
+      return '<div class="qcard ptq" data-q="' + i + '"><span class="tag">' + (i + 1) + ' &middot; ' + esc(q[0]) + '</span>' +
+        (pt.graded ? '<span class="status ' + (right ? 'got">&#x2713; Right' : 'wrongtag">&#x2717; ' + (pick == null ? 'Not answered' : 'Wrong')) + '</span>' : '') +
+        '<div class="pq">' + esc(q[1]) + '</div><div class="opts">' + q[2].map((o,k) => {
+          let cls = "opt";
+          if (pt.graded){ cls += k === q[3] ? " right" : k === pick ? " wrong" : " dim"; }
+          else if (k === pick) cls += " picked";
+          return '<button class="' + cls + '" data-k="' + k + '"' + (pt.graded ? " disabled" : "") + '><span class="letter">' + "ABCD"[k] + '</span><span class="otext">' + esc(o) + '</span></button>';
+        }).join("") + '</div>' +
+        (pt.graded ? '<div class="fb ' + (right ? 'ok' : 'no') + '">' + (right ? '' : 'Answer: ' + "ABCD"[q[3]] + '. ') + esc(q[4]) + '</div>' : '') + '</div>';
+    }).join("") +
+    (pt.graded ? '<button class="btn primary" id="ptRetake">Retake</button>'
+      : '<button class="btn primary" id="ptCheck">Check my answers' + (answered < N ? ' (' + (N - answered) + ' unanswered)' : '') + '</button>');
+  box.querySelectorAll(".ptq .opt").forEach(b => b.onclick = () => {
+    const q = +b.closest(".ptq").dataset.q; pt.picks[q] = +b.dataset.k;
+    b.parentNode.querySelectorAll(".opt").forEach(x => x.classList.toggle("picked", x === b));
+    const n = Object.keys(pt.picks).length;
+    $("ptProgress").textContent = n + " of " + N + " answered";
+    $("ptCheck").textContent = "Check my answers" + (n < N ? " (" + (N - n) + " unanswered)" : "");
+  });
+  if (pt.graded){ [$("ptRetake"), $("ptRetakeTop")].forEach(b => b.onclick = () => { pt = {picks: {}, graded: false}; ptRender(); window.scrollTo({top: 0}); }); }
+  else $("ptCheck").onclick = () => { pt.graded = true; ptRender(); window.scrollTo({top: 0}); };
+}
+ptRender();
+</script>
+</body>
+</html>
